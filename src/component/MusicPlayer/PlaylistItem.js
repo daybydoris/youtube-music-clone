@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { useMusicDispatch } from '../../MusicContext';
-import { usePlaylistDispatch } from '../../PlaylistContext';
+import { useMusicDispatch, usePlayPauseDispatch } from '../../MusicContext';
+import { usePlaylistDispatch, usePlaylistState } from '../../PlaylistContext';
 
 const RemoveItem = styled.div`
     font-size: 12px;
@@ -57,18 +57,37 @@ const ItemThumb = styled.img`
 `;
 
 
-function PlaylistItem({ id, thumb, title, artist, nowPlaying }) {
+function PlaylistItem({ id, thumb, title, artist }) {
+
+    const list = usePlaylistState();
+
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
+    const playDispatch = usePlayPauseDispatch();
 
+    //플레이리스트에서 음악 클릭(재생)
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });
+        playlistDispatch({ type: "SET_NOWPLAYING", id });
+        playDispatch({ type: "PLAY" });
     }
 
+    //플레이리스트에서 음악 삭제
     const onRemove = (e) => {
         e.stopPropagation();
         playlistDispatch({ type: "REMOVE", id });
         dispatch({ type: 'AFTER_REMOVE', id });
+        playDispatch({ type: "PAUSE" });
+
+        //삭제하고 난 후 playlist의 마지막 곡 재생
+        // list.filter(item => item.id !== id).forEach((item, key, arr) => {
+        //     if (key === arr.length - 1) {
+        //         id = item.id;
+        //         dispatch({ type: "PLAY", id });
+        //         playDispatch({ type: "PLAY" });
+        //     }
+        // });
+
     }
 
     return (
