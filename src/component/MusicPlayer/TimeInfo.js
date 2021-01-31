@@ -1,17 +1,49 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useMusicState } from '../../MusicContext';
 
 const TimeInfoStyle = styled.span`
     font-size: 12px;
     color:#aaa;
+    min-width: 56px;
 `;
 
-function TimeInfo() {
+function TimeInfo({ played }) {
+
+    const state = useMusicState();
+
+    let minutes = "0";
+    let seconds = "00";
+
+    //재생 시간 계산
+    if (!played) {
+        minutes = "0";
+        seconds = "00";
+    } else if (played < 60) {
+        if (played < 10) {
+            seconds = `0${Math.floor(played)}`;
+        } else {
+            seconds = Math.floor(played);
+        }
+    } else if (played >= 60) {
+        minutes = Math.floor(Math.floor(played) / 60);
+        seconds = Math.floor(played) % 60;
+        if (seconds < 10) {
+            seconds = `0${Math.floor(played) % 60}`;
+        } else {
+            seconds = Math.floor(played) % 60;
+        }
+    }
+
     return (
         <TimeInfoStyle>
-            1:30 / 4:33
+            {minutes}:{seconds} / {state.filter(song => {
+                return song.nowPlaying
+            }).map(song => (
+                song.playTime
+            ))}
         </TimeInfoStyle>
     );
 };
 
-export default TimeInfo;
+export default React.memo(TimeInfo);
