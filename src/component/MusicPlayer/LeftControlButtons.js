@@ -4,7 +4,8 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
-import { useMusicState } from '../../MusicContext';
+import { useMusicState, usePlayPauseState, usePlayPauseDispatch } from '../../MusicContext';
+
 
 const LeftControlButtonsStyle = styled.div`
     display: flex;
@@ -36,15 +37,27 @@ const PlayPauseButtonStyle = {
 
 function LeftControlButtons() {
     const state = useMusicState();
+    const play = usePlayPauseState();
+    const dispatch = usePlayPauseDispatch();
+
+    const onPlayPause = (e) => {
+        e.stopPropagation();
+        if (play) {
+            dispatch({ type: 'PAUSE' });
+        } else {
+            dispatch({ type: 'PLAY' });
+        }
+    }
 
     return (
         <LeftControlButtonsStyle>
             <SkipPreviousIcon style={ButtonStyle} />
-            <PlayArrowIcon style={PlayPauseButtonStyle} />
+            {play && <PauseIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
+            { !play && <PlayArrowIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
             <SkipNextIcon style={ButtonStyle} />
             {/* <PauseIcon style={ButtonStyle} /> */}
         </LeftControlButtonsStyle>
     );
 };
 
-export default LeftControlButtons;
+export default React.memo(LeftControlButtons);

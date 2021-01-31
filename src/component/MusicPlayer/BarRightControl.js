@@ -42,4 +42,4 @@ function BarRightControl({ onPopToggle, open }) {
     );
 };
 
-export default BarRightControl;
+export default React.memo(BarRightControl);

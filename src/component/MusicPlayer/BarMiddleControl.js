@@ -51,4 +51,4 @@ function BarMiddleControl() {
     );
 };
 
-export default BarMiddleControl;
+export default React.memo(BarMiddleControl);
