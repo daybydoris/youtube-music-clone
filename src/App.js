@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import Home from './pages/Home';
 import MyMusic from './pages/MyMusic';
 import Nav from './component/Nav';
 import MusicPlayerTemplate from './component/MusicPlayer/MusicPlayerTemplate';
 import styled, { createGlobalStyle } from 'styled-components';
-import { MusicProvider } from './MusicContext';
+import { MusicProvider, PlayPauseProvider } from './MusicContext';
 import { PlaylistProvider } from './PlaylistContext';
-import ContextRoute from './ContextRoute';
 
 const GlobalStyle = createGlobalStyle`
 *{
   box-sizing:border-box;
-}
+  }
   body{
     padding:0;
     margin:0;
@@ -24,21 +23,38 @@ const GlobalStyle = createGlobalStyle`
     text-decoration:none;
     color:#ffffff80;
   }
+  #root{
+    width:100%;
+    height:100vh;
+    position: relative;
+  }
+`;
+
+const PageContainer = styled.div`
+  width:100%;
 `;
 
 function App() {
+
+  const [open, setOpen] = useState(false);
+
+  const onPopToggle = () => {
+    setOpen(!open);
+  }
 
 
   return (
     <MusicProvider>
       <PlaylistProvider>
-        <GlobalStyle />
-        <Nav />
-        <div>
-          <Route path="/" exact component={Home} />
-          <Route path="/mymusic" component={MyMusic} />
-        </div>
-        <MusicPlayerTemplate />
+        <PlayPauseProvider>
+          <GlobalStyle />
+          <Nav />
+          <PageContainer>
+            <Route path="/" exact render={() => <Home open={open} />} />
+            <Route path="/mymusic" render={() => <MyMusic open={open} />} />
+          </PageContainer>
+          <MusicPlayerTemplate open={open} onPopToggle={onPopToggle} />
+        </PlayPauseProvider>
       </PlaylistProvider>
     </MusicProvider>
   );
