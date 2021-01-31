@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useMusicState } from '../../MusicContext';
 import { usePlaylistState } from '../../PlaylistContext';
 import PlaylistItem from './PlaylistItem';
 
@@ -25,8 +24,6 @@ const PlaylistTab = styled.div`
 
 function Playlist() {
     const list = usePlaylistState();
-
-    console.log(list);
 
     return (
         <div className="playlist">
