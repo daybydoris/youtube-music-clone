@@ -15,7 +15,9 @@ function playlistReducer(list, action) {
             return list.map(song => song.id === action.id ? { ...song, nowPlaying: true } : { ...song, nowPlaying: false });
         case 'REMOVE':
             //리스트에서 곡 삭제
-            return list.filter(song => song.id !== action.id).map((item, key, arr) => key === arr.length - 1 ? { ...item, nowPlaying: true } : item);
+            return list.filter(song => song.id !== action.id);
+
+        //.map((item, key, arr) => key === arr.length - 1 ? { ...item, nowPlaying: true } : item);
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
     }

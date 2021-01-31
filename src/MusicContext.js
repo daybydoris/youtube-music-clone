@@ -42,8 +42,6 @@ function musicReducer(state, action) {
         case 'AFTER_REMOVE':
             //리스트에서 삭제 후 삭제한 곡의 nowPlaying을 false로 만듦.
             return state.map(song => song.id === action.id ? { ...song, nowPlaying: false } : song);
-        case 'PLAY_NEXT':
-            return 
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
     }
