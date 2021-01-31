@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useMusicDispatch, useMusicState } from '../MusicContext';
+import { useMusicDispatch, usePlayPauseDispatch } from '../MusicContext';
 import { usePlaylistDispatch } from '../PlaylistContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -71,7 +71,6 @@ const MoreVertContainer = styled.a`
 const ThumbBox = styled.div`
     position: relative;
     width:100%;
-    height:180px;
 
     cursor: pointer;
 
@@ -123,6 +122,7 @@ const NowPlayingIcon = {
 function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
+    const playDispatch = usePlayPauseDispatch();
 
     const [option, setOption] = useState(false);
 
@@ -131,10 +131,12 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
         dispatch({ type: "PLAY", id });
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
+        playDispatch({ type: 'PLAY' });
     }
 
     const onJustAdd = () => {
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
+        setOption(!option);
     }
     const onMore = (e) => {
         e.stopPropagation();
