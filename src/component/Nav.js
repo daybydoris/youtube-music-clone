@@ -1,16 +1,20 @@
-import React, { useState, useReducer } from 'react';
-import { Route, Link, NavLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import SearchBox from './SearchBox';
 
 const NavContainer = styled.div`
-    position: relative;
+    position: fixed;
+    left:0; top:0;
     display:flex;
     align-items: center;
     justify-content: space-between;
     width:100%;
 
     padding:8px;
+    background: #030303;
+
+    z-index:999;
 `;
 
 
