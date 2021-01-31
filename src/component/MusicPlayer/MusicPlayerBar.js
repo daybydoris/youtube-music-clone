@@ -3,54 +3,48 @@ import styled from 'styled-components';
 import BarLeftControl from './BarLeftControl';
 import BarMiddleControl from './BarMiddleControl';
 import BarRightControl from './BarRightControl';
-import { usePlaylistState } from '../../PlaylistContext';
-import YouTube from 'react-youtube';
-import ReactPlayer from 'react-player/youtube';
+import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
+import { usePlayPauseState } from '../../MusicContext';
+import VideoContainer from './VideoContainer';
 
 const PlayerBarStyle = styled.div`
     display: flex;
     background:#212121;
     height:60px;
+
+    position: relative;
 `;
 
-const opts = {
-    width: "640",
-    height: "360",
-    playerVars: {
-        'autoPlay': 1
-    },
-};
-
-const YoutubeStyle = {
-    position: "absolute",
-    left: "0",
-    top: "0"
-}
 
 // 재생 중인 음악 컨트롤, 음악 정보가 나오는 플레이어바
 
 function MusicPlayerBar({ onPopToggle, open }) {
 
     const list = usePlaylistState();
+    const play = usePlayPauseState();
+    const playlistDispatch = usePlaylistDispatch();
 
-    let videoUrl = "";
+    const [played, setPlayed] = useState(0);
 
-    list.forEach(item => {
-        if (item.nowPlaying) {
-            videoUrl = item.url;
-        }
-    });
 
-    console.log(videoUrl);
-
-    const _onReady = (e) => {
-        e.target.pauseVideo();
+    const _onProgress = (e) => {
+        setPlayed(e.playedSeconds);
     }
+
+    // const _onEnded = (e) => {
+    //     list.forEach((item, index) => {
+    //         if(index === songIndex+1){
+    //             dispatch({ type: "PLAY", item.id });
+    //             playlistDispatch({ type: "SET_NOWPLAYING", item.id });
+    //             playDispatch({ type: "PLAY" });
+    //         }
+    //     });
+    // }
 
     return (
         <PlayerBarStyle onClick={onPopToggle}>
-            <ReactPlayer url={videoUrl} playing={true} width="0" height="0" />
-            <BarLeftControl />
+            <VideoContainer play={play} played={played} _onProgress={_onProgress} />
+            <BarLeftControl play={play} played={played} />
             <BarMiddleControl />
             <BarRightControl onPopToggle={onPopToggle} open={open} />
         </PlayerBarStyle>
