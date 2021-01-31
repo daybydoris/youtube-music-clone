@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MusicPlayerSlider from './MusicPlayerSlider';
 import MusicPlayerBar from './MusicPlayerBar';
 import MusicPlayerPop from './MusicPlayerPop';
-import { usePlaylistState } from '../../PlaylistContext';
+
 
 const PlayerStyle = styled.div`
     position: fixed;
@@ -15,15 +15,8 @@ const PlayerStyle = styled.div`
 
 // 플레이어바를 감싸는 템플릿
 
-function MusicPlayerTemplate() {
+function MusicPlayerTemplate({ open, onPopToggle }) {
 
-    const list = usePlaylistState();
-
-    const [open, setOpen] = useState(false);
-
-    const onPopToggle = () => {
-        setOpen(!open);
-    }
 
     return (
         <>
@@ -32,7 +25,7 @@ function MusicPlayerTemplate() {
                 <MusicPlayerSlider />
                 <MusicPlayerBar onPopToggle={onPopToggle} open={open} />
             </PlayerStyle>
-        </>
+        </ >
     );
 };
 
