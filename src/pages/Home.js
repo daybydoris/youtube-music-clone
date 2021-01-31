@@ -4,22 +4,28 @@ import HomeTemplate from '../component/HomeTemplate';
 
 const HomeTemplateList = [
     {
-        id: 0,
-        subtitle: '다시 듣기',
-        title: '오후에 잘 어울리는 음악'
+        id: 1,
+        subtitle: '',
+        title: '추천 음악'
+    },
+    {
+        id: 2,
+        subtitle: '',
+        title: '즐겨 듣는 음악'
     }
-    // {
-    //     id: 1,
-    //     subtitle: '',
-    //     title: '추천 음악'
-    // }
-]
+];
+
+
 
 const HomeStyle = styled.div`
-    margin-bottom:70px;
+    padding-top: 60px;
+    padding-bottom:80px;
+    width:100%;
 `;
 
-function Home() {
+function Home({ open }) {
+
+    console.log(open);
     return (
         <HomeStyle>
             {HomeTemplateList.map(list => (
@@ -27,6 +33,7 @@ function Home() {
                     key={list.id}
                     subtitle={list.subtitle}
                     title={list.title}
+                    open={open}
                 />
             ))}
         </HomeStyle>
