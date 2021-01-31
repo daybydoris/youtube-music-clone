@@ -1,24 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import YouTube from 'react-youtube';
 import { usePlaylistState } from '../../PlaylistContext';
-import { useMusicState } from '../../MusicContext';
 
 const PlayContentContainer = styled.div`
     width:64%;
-`;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-const opts = {
-    width: "640",
-    height: "360",
-    playerVars: {
-        'autoPlay': 1
-    },
-};
+    img{
+        height:90%;
+    }
+`;
 
 function PlayContent() {
 
-    const list = useMusicState();
+    const list = usePlaylistState();
 
     let thumbId = "";
 
@@ -28,12 +25,8 @@ function PlayContent() {
         }
     });
 
-    const _onReady = (e) => {
-        e.target.pauseVideo();
-    }
-
     return (
-        <PlayContentContainer>
+        <PlayContentContainer className="content">
             <img src={thumbId} />
         </PlayContentContainer>
     );
