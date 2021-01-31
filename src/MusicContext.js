@@ -1,29 +1,7 @@
-import { parse } from 'query-string';
 import React, { useContext, useReducer, createContext } from 'react';
 import AkmuThumb from './img/akmuartificialgrass.jpg';
 import HigedanThumb from './img/higedanpretender.jpg';
 import SoohyunThumb from './img/soohyunstartagain.jpg';
-
-// [
-//     {
-//         id: 1,
-//         title: "인공 잔디",
-//         artist: "AKMU",
-//         type: "노래",
-//         url: "https://youtu.be/5pK1cnHCPdk",
-//         thumb: "https://lh3.googleusercontent.com/-M53Nz51vK0TXu1MkXe4V5JT-AOoVljKLQv0xVFyFgzT8RHKz2RWwKNNgzpwNMgefB7k8RDMxuAuXMw=w226-h226-l90-rj",
-//         nowPlaying: false
-//     },
-//     {
-//         id: 2,
-//         title: "Pretender",
-//         artist: "official髭男dism",
-//         type: "노래",
-//         url: "https://youtu.be/TQ8WlA2GXbk",
-//         thumb: "https://lh3.googleusercontent.com/0ggCvSHHEiWpE6nr3cjtaIIGRxE8WFb-I99vwSOp6mg8syaR6K9PwhVGjOrN1FZCDeQJXdwrxUT9-ztl3Q=w226-h226-l90-rj",
-//         nowPlaying: false
-//     }
-// ];
 
 const initialMusics = [
     {
@@ -32,7 +10,8 @@ const initialMusics = [
         artist: "AKMU",
         url: "https://youtu.be/5pK1cnHCPdk",
         thumb: AkmuThumb,
-        nowPlaying: false
+        nowPlaying: false,
+        playTime: "3:45"
     },
     {
         id: 2,
@@ -40,7 +19,8 @@ const initialMusics = [
         artist: "official髭男dism",
         url: "https://youtu.be/TQ8WlA2GXbk",
         thumb: HigedanThumb,
-        nowPlaying: false
+        nowPlaying: false,
+        playTime: "5:27"
     },
     {
         id: 3,
@@ -48,7 +28,8 @@ const initialMusics = [
         artist: "SOOHYUN (from U-KISS)",
         url: "https://youtu.be/pP6WTt4BK2s",
         thumb: SoohyunThumb,
-        nowPlaying: false
+        nowPlaying: false,
+        playTime: "4:54"
     }
 ];
 
@@ -61,15 +42,28 @@ function musicReducer(state, action) {
         case 'AFTER_REMOVE':
             //리스트에서 삭제 후 삭제한 곡의 nowPlaying을 false로 만듦.
             return state.map(song => song.id === action.id ? { ...song, nowPlaying: false } : song);
+        case 'PLAY_NEXT':
+            return 
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
 
+function PlayPauseReducer(play, action) {
+    switch (action.type) {
+        case 'PLAY':
+            return true;
+        case 'PAUSE':
+            return false;
+        default:
+            throw new Error(`Unhandled action type: ${action.type}`);
+    }
+}
 
 const MusicStateContext = createContext();
 const MusicDispatchContext = createContext();
-
+const PlayPauseStateContext = createContext();
+const PlayPauseDispatchContext = createContext();
 
 export function MusicProvider({ children }) {
     const [state, dispatch] = useReducer(musicReducer, initialMusics);
@@ -82,6 +76,18 @@ export function MusicProvider({ children }) {
     );
 }
 
+
+export function PlayPauseProvider({ children }) {
+    const [play, dispatch] = useReducer(PlayPauseReducer, false);
+
+    return (
+        <PlayPauseStateContext.Provider value={play} >
+            <PlayPauseDispatchContext.Provider value={dispatch}>
+                {children}
+            </PlayPauseDispatchContext.Provider>
+        </PlayPauseStateContext.Provider>
+    );
+}
 
 
 //custom Hooks
@@ -101,3 +107,19 @@ export function useMusicDispatch() {
     return context;
 }
 
+export function usePlayPauseState() {
+    const context = useContext(PlayPauseStateContext);
+    // console.log(context);
+    // if (!context) {
+    //     throw new Error('Cannot find PlayPauseProvider');
+    // }
+    return context;
+}
+
+export function usePlayPauseDispatch() {
+    const context = useContext(PlayPauseDispatchContext);
+    // if (!context) {
+    //     throw new Error('Cannot find PlayPauseProvider');
+    // }
+    return context;
+}

@@ -1,5 +1,4 @@
-import { parse } from 'query-string';
-import React, { useState, useContext, useReducer, createContext } from 'react';
+import React, { useContext, useReducer, createContext } from 'react';
 
 
 let initialPlaylist = [];
