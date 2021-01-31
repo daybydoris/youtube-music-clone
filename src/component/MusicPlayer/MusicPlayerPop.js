@@ -1,43 +1,42 @@
 import React from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import Playlist from './Playlist';
 import PlayContent from './PlayContent';
 
 const popUp = keyframes`
     0%{
-        top: 100%;
+        visibility: hidden;
+        transform: translate3d(0, 100vh, 0);
     }
     100%{
-        top: 48px;
+        visibility: visible;
+        transform: translate3d(0, 0, 0);
     }
 `;
 
 const popDown = keyframes`
     0%{
-        top: 48px;
+        visibility: visible;
+        transform: translate3d(0, 0, 0);
     }
     100%{
-        top: 100%;
+        visibility: hidden;
+        transform: translate3d(0, 100vh, 0);
     }
 `;
 
 const PopContainer = styled.div`
-    position: absolute;
-    left:0; top: 100%;
+    position: fixed;
+    left:0; top:48px;
 
     display: flex;
 
     padding:25px 35px;
+    padding-bottom : 150px;
 
     width:100%;
-    height:100vh;
+    height:100%;
     background:#030303;
-
-    ${props => props.open &&
-        css`
-        top:48px;
-    `
-    }
 
     animation: ${props => props.open ? popUp : popDown} 0.5s forwards;
 
