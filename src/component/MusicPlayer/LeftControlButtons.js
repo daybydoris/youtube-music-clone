@@ -4,7 +4,8 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
-import { useMusicState, usePlayPauseState, usePlayPauseDispatch } from '../../MusicContext';
+import { useMusicDispatch, usePlayPauseState, usePlayPauseDispatch } from '../../MusicContext';
+import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
 
 const LeftControlButtonsStyle = styled.div`
@@ -36,26 +37,63 @@ const PlayPauseButtonStyle = {
 }
 
 function LeftControlButtons() {
-    const state = useMusicState();
+    const dispatch = useMusicDispatch();
     const play = usePlayPauseState();
-    const dispatch = usePlayPauseDispatch();
+    const playDispatch = usePlayPauseDispatch();
+    const playlist = usePlaylistState();
+    const playlistDispatch = usePlaylistDispatch();
 
     const onPlayPause = (e) => {
         e.stopPropagation();
         if (play) {
-            dispatch({ type: 'PAUSE' });
+            playDispatch({ type: 'PAUSE' });
         } else {
-            dispatch({ type: 'PLAY' });
+            playDispatch({ type: 'PLAY' });
         }
+    }
+
+    //이전곡 재생
+    const onPlayPrev = (e) => {
+        e.stopPropagation();
+
+        let id = 0;
+
+        playlist.map((item, index) => {
+            if (item.nowPlaying) {
+                if (playlist[index - 1]) {
+                    id = playlist[index - 1].id;
+                    dispatch({ type: "PLAY", id });
+                    playlistDispatch({ type: "SET_NOWPLAYING", id });
+                    playDispatch({ type: 'PLAY' });
+                }
+            }
+        });
+    }
+
+    //다음곡 재생
+    const onPlayNext = (e) => {
+        e.stopPropagation();
+
+        let id = 0;
+
+        playlist.map((item, index) => {
+            if (item.nowPlaying) {
+                if (playlist[index + 1]) {
+                    id = playlist[index + 1].id;
+                    dispatch({ type: "PLAY", id });
+                    playlistDispatch({ type: "SET_NOWPLAYING", id });
+                    playDispatch({ type: 'PLAY' });
+                }
+            }
+        });
     }
 
     return (
         <LeftControlButtonsStyle>
-            <SkipPreviousIcon style={ButtonStyle} />
+            <SkipPreviousIcon style={ButtonStyle} onClick={onPlayPrev} />
             {play && <PauseIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
             { !play && <PlayArrowIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
-            <SkipNextIcon style={ButtonStyle} />
-            {/* <PauseIcon style={ButtonStyle} /> */}
+            <SkipNextIcon style={ButtonStyle} onClick={onPlayNext} />
         </LeftControlButtonsStyle>
     );
 };
