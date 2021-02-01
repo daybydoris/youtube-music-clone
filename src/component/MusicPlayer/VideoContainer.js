@@ -1,31 +1,45 @@
 import React from 'react';
 import ReactPlayer from 'react-player/youtube';
+import { useMusicDispatch, usePlayPauseDispatch } from '../../MusicContext';
 import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
 
 function VideoContainer({ play, _onProgress }) {
 
-    const list = usePlaylistState();
+    const playlist = usePlaylistState();
+    const dispatch = useMusicDispatch();
+    const playlistDispatch = usePlaylistDispatch();
+    const playDispatch = usePlayPauseDispatch();
 
     let videoUrl = "";
-    let songIndex = 0;
 
     //nowPlaying인 곡의 url 가져오기
-
-
-    list.forEach((item, index) => {
+    playlist.forEach((item, index) => {
         if (item.nowPlaying) {
             videoUrl = item.url;
-            songIndex = index;
-            console.log(songIndex);
         }
     });
 
+    const _onEnded = (e) => {
+        let id = 0;
 
+        playlist.map((item, index) => {
+            if (item.nowPlaying) {
+                if (playlist[index + 1]) {
+                    id = playlist[index + 1].id;
+                    dispatch({ type: "PLAY", id });
+                    playlistDispatch({ type: "SET_NOWPLAYING", id });
+                    playDispatch({ type: 'PLAY' });
+                } else {
+                    playDispatch({ type: 'PAUSE' });
+                }
+            }
+        });
+    }
 
     return (
         <>
-            <ReactPlayer url={videoUrl} playing={play} onProgress={_onProgress} width="0" height="0" />
+            <ReactPlayer url={videoUrl} playing={play} onProgress={_onProgress} onEnded={_onEnded} width="0" height="0" />
         </>
     );
 };

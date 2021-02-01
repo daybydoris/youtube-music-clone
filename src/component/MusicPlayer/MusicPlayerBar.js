@@ -31,15 +31,7 @@ function MusicPlayerBar({ onPopToggle, open }) {
         setPlayed(e.playedSeconds);
     }
 
-    // const _onEnded = (e) => {
-    //     list.forEach((item, index) => {
-    //         if(index === songIndex+1){
-    //             dispatch({ type: "PLAY", item.id });
-    //             playlistDispatch({ type: "SET_NOWPLAYING", item.id });
-    //             playDispatch({ type: "PLAY" });
-    //         }
-    //     });
-    // }
+
 
     return (
         <PlayerBarStyle onClick={onPopToggle}>

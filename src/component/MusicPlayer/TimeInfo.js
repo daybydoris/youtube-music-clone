@@ -15,23 +15,24 @@ function TimeInfo({ played }) {
     let minutes = "0";
     let seconds = "00";
 
+    console.log(played);
     //재생 시간 계산
     if (!played) {
         minutes = "0";
         seconds = "00";
     } else if (played < 60) {
         if (played < 10) {
-            seconds = `0${Math.floor(played)}`;
+            seconds = `0${Math.round(played)}`;
         } else {
-            seconds = Math.floor(played);
+            seconds = Math.round(played);
         }
     } else if (played >= 60) {
-        minutes = Math.floor(Math.floor(played) / 60);
-        seconds = Math.floor(played) % 60;
+        minutes = Math.round(Math.round(played) / 60);
+        seconds = Math.round(played) % 60;
         if (seconds < 10) {
-            seconds = `0${Math.floor(played) % 60}`;
+            seconds = `0${Math.round(played) % 60}`;
         } else {
-            seconds = Math.floor(played) % 60;
+            seconds = Math.round(played) % 60;
         }
     }
 
