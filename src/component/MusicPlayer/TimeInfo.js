@@ -15,7 +15,6 @@ function TimeInfo({ played }) {
     let minutes = "0";
     let seconds = "00";
 
-    console.log(played);
     //재생 시간 계산
     if (!played) {
         minutes = "0";

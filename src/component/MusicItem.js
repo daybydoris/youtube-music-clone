@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useMusicDispatch, usePlayPauseDispatch } from '../MusicContext';
+import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch } from '../PlaylistContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import QueueIcon from '@material-ui/icons/Queue';
+import PauseIcon from '@material-ui/icons/Pause';
 
 const OptionBox = styled.ul`
     position: absolute;
@@ -56,7 +57,8 @@ const ThumbBoxHover = styled.div`
     width:100%;
     height:100%;
 
-    display: none;
+    display: ${props => props.nowPlaying ? "initial" : "none"};
+
 `;
 
 const MoreVertContainer = styled.a`
@@ -123,8 +125,10 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
+    const playState = usePlayPauseState();
 
     const [option, setOption] = useState(false);
+    const [hover, setHover] = useState(false);
 
     // 재생 중 상태로 바꾸고 음악을 플레이리스트에 추가
     const onMusicPlay = () => {
@@ -143,6 +147,23 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
         setOption(!option);
     }
 
+    const onMouseEnter = () => {
+        setHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setHover(false);
+    }
+
+    const onPlayPause = (e) => {
+        e.stopPropagation();
+        if (playState) {
+            playDispatch({ type: 'PAUSE' });
+        } else {
+            playDispatch({ type: 'PLAY' });
+        }
+    }
+
     // useEffect(() => {
 
     // }, [nowPlaying]);
@@ -151,13 +172,33 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
 
         <ItemBox>
             <ThumbBox onClick={onMusicPlay}>
-                <ThumbBoxHover>
-                    <MoreVertContainer onClick={onMore}>
-                        <MoreVertIcon />
-                    </MoreVertContainer>
-                </ThumbBoxHover>
-                {!nowPlaying && <PlayArrowIcon style={NowPlayingIcon} />}
-                {nowPlaying && <VolumeUpIcon style={NowPlayingIcon} />}
+
+                {!nowPlaying &&
+                    <div>
+                        <ThumbBoxHover>
+                            <MoreVertContainer onClick={onMore}>
+                                <MoreVertIcon />
+                            </MoreVertContainer>
+                        </ThumbBoxHover>
+                        <PlayArrowIcon style={NowPlayingIcon} />
+                    </div>}
+
+                {nowPlaying &&
+                    <div>
+                        <ThumbBoxHover nowPlaying>
+                            <MoreVertContainer onClick={onMore}>
+                                <MoreVertIcon />
+                            </MoreVertContainer>
+                        </ThumbBoxHover>
+                        <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                            {!playState && <PlayArrowIcon style={NowPlayingIcon} onClick={onPlayPause} />}
+                            {playState && <div>
+                                {!hover && <VolumeUpIcon style={NowPlayingIcon} />}
+                                {hover && <PauseIcon style={NowPlayingIcon} onClick={onPlayPause} />}
+                            </div>}
+                        </div>
+                    </div>
+                }
                 <ItemThumb src={thumb} style={{ cursor: "pointer" }} />
             </ThumbBox>
             {option && <OptionBox>
