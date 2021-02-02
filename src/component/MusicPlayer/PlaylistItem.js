@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import { useMusicDispatch, usePlayPauseDispatch } from '../../MusicContext';
-import { usePlaylistDispatch, usePlaylistState } from '../../PlaylistContext';
+import PauseIcon from '@material-ui/icons/Pause';
+import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../../MusicContext';
+import { usePlaylistDispatch } from '../../PlaylistContext';
 
 const RemoveItem = styled.div`
     font-size: 12px;
@@ -20,6 +21,7 @@ const MusicItemContainer = styled.li`
     border-bottom: 1px solid #ffffff30;
 
     height: 55px;
+    padding: 0px 8px;
 
     cursor: pointer;
 
@@ -29,8 +31,9 @@ const MusicItemContainer = styled.li`
         }
     }
 
+    ${props => props.nowPlaying ? "background: rgba(255,255,255,0.1);" : null}
+
     .thumb-box{
-        height:100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -56,20 +59,57 @@ const ItemThumb = styled.img`
     border-radius: 4px;
 `;
 
+const ThumbBoxHover = styled.div`
+    position: absolute;
+    left:0; top:0;
+    background:rgba(0,0,0,0.5);
 
-function PlaylistItem({ id, thumb, title, artist }) {
+    width:100%;
+    height:100%;
 
-    const list = usePlaylistState();
+    display: ${props => props.nowPlaying ? "flex" : "none"};
+
+`;
+const ThumbBox = styled.div`
+    height:32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+
+    cursor: pointer;
+
+    &:hover{
+        ${ThumbBoxHover}{
+            display: initial;
+        }
+    }
+`;
+
+const NowPlayingIcon = {
+    position: "absolute",
+    left: "50%",
+    top: "50%",
+    transform: "translate(-50%, -50%)",
+    fontSize: "23px"
+}
+
+function PlaylistItem({ id, thumb, title, artist, nowPlaying }) {
+
+
+    const [hover, setHover] = useState(false);
 
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
+    const playState = usePlayPauseState();
 
     //플레이리스트에서 음악 클릭(재생)
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
         playDispatch({ type: "PLAY" });
+        console.log(nowPlaying);
     }
 
     //플레이리스트에서 음악 삭제
@@ -90,11 +130,46 @@ function PlaylistItem({ id, thumb, title, artist }) {
 
     }
 
+    const onMouseEnter = () => {
+        setHover(true);
+    }
+
+    const onMouseLeave = () => {
+        setHover(false);
+    }
+
+    const onPlayPause = (e) => {
+        e.stopPropagation();
+        if (playState) {
+            playDispatch({ type: 'PAUSE' });
+        } else {
+            playDispatch({ type: 'PLAY' });
+        }
+    }
+
     return (
-        <MusicItemContainer onClick={onMusicPlay}>
-            <div className="thumb-box">
-                <ItemThumb src={thumb} />
-            </div>
+        <MusicItemContainer onClick={onMusicPlay} nowPlaying={nowPlaying}>
+            <ThumbBox className="thumb-box">
+                {!nowPlaying &&
+                    <ThumbBoxHover>
+                        <PlayArrowIcon style={NowPlayingIcon} />
+                    </ThumbBoxHover>}
+                {nowPlaying &&
+                    <div>
+                        <ThumbBoxHover nowPlaying>
+                            <div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                                {!playState && <PlayArrowIcon style={NowPlayingIcon} onClick={onPlayPause} />}
+                                {playState && <div>
+                                    {!hover && <VolumeUpIcon style={NowPlayingIcon} />}
+                                    {hover && <PauseIcon style={NowPlayingIcon} onClick={onPlayPause} />}
+                                </div>}
+                            </div>
+                        </ThumbBoxHover>
+
+                    </div>
+                }
+                <ItemThumb src={thumb} style={{ cursor: "pointer" }} />
+            </ThumbBox>
             <div className="item-info">
                 <Info>{title}</Info>
                 <Info>{artist}</Info>
@@ -104,4 +179,4 @@ function PlaylistItem({ id, thumb, title, artist }) {
     );
 };
 
-export default PlaylistItem;
+export default React.memo(PlaylistItem);

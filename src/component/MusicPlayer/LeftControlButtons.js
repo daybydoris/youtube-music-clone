@@ -58,7 +58,7 @@ function LeftControlButtons() {
 
         let id = 0;
 
-        playlist.map((item, index) => {
+        playlist.forEach((item, index) => {
             if (item.nowPlaying) {
                 if (playlist[index - 1]) {
                     id = playlist[index - 1].id;
@@ -76,7 +76,7 @@ function LeftControlButtons() {
 
         let id = 0;
 
-        playlist.map((item, index) => {
+        playlist.forEach((item, index) => {
             if (item.nowPlaying) {
                 if (playlist[index + 1]) {
                     id = playlist[index + 1].id;

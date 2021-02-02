@@ -172,7 +172,6 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
 
         <ItemBox>
             <ThumbBox onClick={onMusicPlay}>
-
                 {!nowPlaying &&
                     <div>
                         <ThumbBoxHover>
@@ -182,7 +181,6 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
                         </ThumbBoxHover>
                         <PlayArrowIcon style={NowPlayingIcon} />
                     </div>}
-
                 {nowPlaying &&
                     <div>
                         <ThumbBoxHover nowPlaying>

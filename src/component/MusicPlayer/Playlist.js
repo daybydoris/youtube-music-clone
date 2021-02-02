@@ -37,6 +37,7 @@ function Playlist() {
                         artist={item.artist}
                         url={item.url}
                         title={item.title}
+                        nowPlaying={item.nowPlaying}
                     />
                 ))}
             </PlaylistContainer>
