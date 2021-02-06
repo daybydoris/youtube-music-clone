@@ -20,13 +20,13 @@ function TimeInfo({ played }) {
         minutes = "0";
         seconds = "00";
     } else if (played < 60) {
-        if (played < 10) {
+        if (Math.round(played) < 10) {
             seconds = `0${Math.round(played)}`;
         } else {
             seconds = Math.round(played);
         }
     } else if (played >= 60) {
-        minutes = Math.round(Math.round(played) / 60);
+        minutes = Math.floor(Math.floor(played) / 60);
         seconds = Math.round(played) % 60;
         if (seconds < 10) {
             seconds = `0${Math.round(played) % 60}`;
@@ -34,6 +34,7 @@ function TimeInfo({ played }) {
             seconds = Math.round(played) % 60;
         }
     }
+
 
     return (
         <TimeInfoStyle>
