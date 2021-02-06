@@ -4,7 +4,7 @@ import { useMusicDispatch, usePlayPauseDispatch } from '../../MusicContext';
 import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
 
-function VideoContainer({ play, _onProgress }) {
+function VideoContainer({ play, played, _onProgress, _onDuration, player }) {
 
     const playlist = usePlaylistState();
     const dispatch = useMusicDispatch();
@@ -39,7 +39,7 @@ function VideoContainer({ play, _onProgress }) {
 
     return (
         <>
-            <ReactPlayer url={videoUrl} playing={play} onProgress={_onProgress} onEnded={_onEnded} width="0" height="0" />
+            <ReactPlayer ref={player} played={played} url={videoUrl} playing={play} onProgress={_onProgress} onEnded={_onEnded} onDuration={_onDuration} width="0" height="0" />
         </>
     );
 };
