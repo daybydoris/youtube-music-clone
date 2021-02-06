@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Draggable from 'react-draggable';
 
@@ -83,6 +83,7 @@ const SliderContainer = styled.div`
 // 플레이어바에서 음악 재생 현황을 나타내는 슬라이드 바
 
 function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChange, _onSeekMouseUp, player, _onSeek }) {
+    const sliderCon = useRef();
 
     let currentWidth = (100 / playingTime) * played;
     let clickedX = 0;
@@ -92,22 +93,23 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
         e.stopPropagation();
 
         //재생 바 길이
-        if (!e.target.className.includes("dot")) {
-            clickedX = e.clientX;
-            let slideWidth = e.target.offsetWidth;
-            let percentCalc = (clickedX / slideWidth) * 100; // 재생 바에서 클릭한 곳이 몇 퍼센트 위치인지
-            seekTime = (playingTime * percentCalc) / 100;
-            // console.log(playingTime * percentCalc / 100); // 바뀔 played 계산. seek 함수로 찾아가야할 곳
-            currentWidth = (clickedX / slideWidth) * 100;
+        // if (e.target.className.includes("dot")) {
+        clickedX = e.clientX;
 
-            _onSeekChange(seekTime);
-        }
+        let slideWidth = sliderCon.current.offsetWidth;
+        let percentCalc = (clickedX / slideWidth) * 100; // 재생 바에서 클릭한 곳이 몇 퍼센트 위치인지
+        seekTime = (playingTime * percentCalc) / 100;
+        // console.log(playingTime * percentCalc / 100); // 바뀔 played 계산. seek 함수로 찾아가야할 곳
+        currentWidth = (clickedX / slideWidth) * 100;
+
+        _onSeekChange(seekTime);
+        // }
 
     }
 
     return (
         <PlayerSlide>
-            <SliderContainer className="slider-con" onClick={onTimeSeek} onMouseDown={_onSeekMouseDown} onMouseUp={_onSeekMouseUp} playingTime={playingTime} played={played}>
+            <SliderContainer ref={sliderCon} className="slider-con" onClick={onTimeSeek} onMouseDown={_onSeekMouseDown} onMouseUp={_onSeekMouseUp} playingTime={playingTime} played={played}>
                 <DurationSlide />
                 <PlayingSlide currentWidth={currentWidth}>
                     <Draggable
