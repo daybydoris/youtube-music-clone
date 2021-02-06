@@ -11,7 +11,7 @@ const initialMusics = [
         url: "https://youtu.be/5pK1cnHCPdk",
         thumb: AkmuThumb,
         nowPlaying: false,
-        playTime: "3:45"
+        playTime: "3:46"
     },
     {
         id: 2,
