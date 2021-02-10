@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
-import { usePlaylistDispatch } from '../PlaylistContext';
+import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -121,11 +121,12 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
+function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
     const playState = usePlayPauseState();
+    const list = usePlaylistState();
 
     const [option, setOption] = useState(false);
     const [hover, setHover] = useState(false);
@@ -136,6 +137,9 @@ function MusicItem({ id, title, thumb, type, artist, url, nowPlaying }) {
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
         playDispatch({ type: 'PLAY' });
+        if (list.length === 0) {
+            onOpenPop();
+        }
     }
 
     const onJustAdd = () => {

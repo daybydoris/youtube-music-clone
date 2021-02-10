@@ -2,6 +2,7 @@ import React from 'react';
 import MusicList from './MusicList';
 import styled, { keyframes } from 'styled-components';
 
+
 const ContentHidden = keyframes`
     0%{
         visibility: visible;
@@ -29,20 +30,18 @@ const HomeTemplateStyle = styled.div`
     animation: ${props => props.open ? ContentHidden : ContentVisible} 0.5s forwards;
 `;
 
-function HomeTemplate({ subtitle, title, open }) {
+function HomeTemplate({ subtitle, title, open, onOpenPop }) {
+
+
+
     return (
-        <>
-            {open && <HomeTemplateStyle open>
+        <div>
+            <HomeTemplateStyle open={open}>
                 <p>{subtitle}</p>
                 <h1>{title}</h1>
-                <MusicList />
-            </HomeTemplateStyle>}
-            { !open && <HomeTemplateStyle>
-                <p>{subtitle}</p>
-                <h1>{title}</h1>
-                <MusicList />
-            </HomeTemplateStyle>}
-        </>
+                <MusicList onOpenPop={onOpenPop} />
+            </HomeTemplateStyle>
+        </div>
     );
 };
 

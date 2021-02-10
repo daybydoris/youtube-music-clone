@@ -50,19 +50,12 @@ const PopContainer = styled.div`
 `;
 
 function MusicPlayerPop({ open }) {
+
     return (
-        <>
-            {open && <PopContainer open >
-                <PlayContent />
-                <Playlist />
-            </PopContainer>
-            }
-            {!open && <PopContainer>
-                <PlayContent />
-                <Playlist />
-            </PopContainer>
-            }
-        </>
+        <PopContainer open={open} >
+            <PlayContent />
+            <Playlist />
+        </PopContainer>
     );
 };
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MusicPlayerSlider from './MusicPlayerSlider';
 import MusicPlayerBar from './MusicPlayerBar';
 import MusicPlayerPop from './MusicPlayerPop';
+import { usePlaylistState } from '../../PlaylistContext';
 
 const PlayerStyle = styled.div`
     position: fixed;
@@ -14,12 +15,13 @@ const PlayerStyle = styled.div`
 
 // 플레이어바를 감싸는 템플릿
 
-function MusicPlayerTemplate({ open, onPopToggle }) {
+function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
 
     const [played, setPlayed] = useState(0);
     const [playingTime, setPlayingTime] = useState(0);
     const [seeking, setSeeking] = useState(false);
 
+    const list = usePlaylistState();
     const player = useRef(null);
 
     const _onProgress = (e) => {
@@ -49,15 +51,21 @@ function MusicPlayerTemplate({ open, onPopToggle }) {
         //this.player.seekTo(played);
     }
 
+    let listLen = list.length;
+
+    if (listLen < 1) {
+        onClosePop();
+    }
 
     return (
-        <>
+        (listLen > 0 && <>
             <MusicPlayerPop open={open} />
             <PlayerStyle>
                 <MusicPlayerSlider played={played} playingTime={playingTime} _onSeekMouseDown={_onSeekMouseDown} _onSeekChange={_onSeekChange} _onSeekMouseUp={_onSeekMouseUp} player={player} />
                 <MusicPlayerBar onPopToggle={onPopToggle} open={open} _onProgress={_onProgress} _onDuration={_onDuration} played={played} seeking={seeking} _onSeek={_onSeek} player={player} />
             </PlayerStyle>
-        </ >
+        </>
+        )
     );
 };
 

@@ -23,9 +23,8 @@ const HomeStyle = styled.div`
     width:100%;
 `;
 
-function Home({ open }) {
+function Home({ open, onOpenPop }) {
 
-    console.log(open);
     return (
         <HomeStyle>
             {HomeTemplateList.map(list => (
@@ -34,6 +33,7 @@ function Home({ open }) {
                     subtitle={list.subtitle}
                     title={list.title}
                     open={open}
+                    onOpenPop={onOpenPop}
                 />
             ))}
         </HomeStyle>
