@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import Draggable from 'react-draggable';
 
@@ -48,6 +48,18 @@ const RedDot = styled.div`
     background:#f00;
 `;
 
+const TimeBox = styled.div`
+    position: absolute;
+    left:${props => props.position}px; top:-30%;
+
+    transform: translateX(-50%);
+    padding:2px 4px;
+    background:#212121;
+    color:#fff;
+    font-size:8px;
+    display: none;
+`;
+
 const SliderContainer = styled.div`
     position:absolute;
     left:0; top:0; right:0; bottom:0;
@@ -75,6 +87,9 @@ const SliderContainer = styled.div`
         ${RedDot}{
             display: initial;
         }
+        ${TimeBox}{
+            display:initial;
+        }
     }
 `;
 
@@ -84,32 +99,60 @@ const SliderContainer = styled.div`
 
 function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChange, _onSeekMouseUp, player, _onSeek }) {
     const sliderCon = useRef();
+    const [hoverTime, setHoverTime] = useState();
+    const [hoveredX, setHoveredX] = useState();
 
     let currentWidth = (100 / playingTime) * played;
-    let clickedX = 0;
-    let seekTime = 0;
 
     const onTimeSeek = (e) => {
         e.stopPropagation();
 
         //재생 바 길이
         // if (e.target.className.includes("dot")) {
-        clickedX = e.clientX;
+        let clickedX = e.clientX;
 
         let slideWidth = sliderCon.current.offsetWidth;
         let percentCalc = (clickedX / slideWidth) * 100; // 재생 바에서 클릭한 곳이 몇 퍼센트 위치인지
-        seekTime = (playingTime * percentCalc) / 100;
+        let seekTime = (playingTime * percentCalc) / 100;
         // console.log(playingTime * percentCalc / 100); // 바뀔 played 계산. seek 함수로 찾아가야할 곳
         currentWidth = (clickedX / slideWidth) * 100;
 
         _onSeekChange(seekTime);
-        // }
 
     }
 
+    const onHover = (e) => {
+        setHoveredX(e.clientX);
+
+        let slideWidth = sliderCon.current.offsetWidth;
+        let percentCalc = (hoveredX / slideWidth) * 100;
+
+        let seekTime = (playingTime * percentCalc) / 100;
+
+        let minutes = 0;
+        let seconds = 0;
+
+        if (seekTime < 60) {
+            if (Math.round(seekTime) < 10) {
+                seconds = `0${Math.round(seekTime)}`;
+            } else {
+                seconds = Math.round(seekTime);
+            }
+        } else if (seekTime >= 60) {
+            minutes = Math.floor(Math.floor(seekTime) / 60);
+            seconds = Math.round(seekTime) % 60;
+            if (seconds < 10) {
+                seconds = `0${Math.round(seekTime) % 60}`;
+            } else {
+                seconds = Math.round(seekTime) % 60;
+            }
+        }
+
+        setHoverTime(`${minutes}:${seconds}`);
+    }
     return (
         <PlayerSlide>
-            <SliderContainer ref={sliderCon} className="slider-con" onClick={onTimeSeek} onMouseDown={_onSeekMouseDown} onMouseUp={_onSeekMouseUp} playingTime={playingTime} played={played}>
+            <SliderContainer ref={sliderCon} className="slider-con" onClick={onTimeSeek} onMouseMove={onHover} playingTime={playingTime} played={played}>
                 <DurationSlide />
                 <PlayingSlide currentWidth={currentWidth}>
                     <Draggable
@@ -119,6 +162,9 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
                         <RedDot className="red-dot" />
                     </Draggable>
                 </PlayingSlide>
+                <TimeBox position={hoveredX}>
+                    {hoverTime}
+                </TimeBox>
             </SliderContainer>
         </PlayerSlide >
     );
