@@ -4,7 +4,7 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../../MusicContext';
-import { usePlaylistDispatch } from '../../PlaylistContext';
+import { usePlaylistDispatch, usePlaylistState } from '../../PlaylistContext';
 
 const RemoveItem = styled.div`
     font-size: 12px;
@@ -103,13 +103,13 @@ function PlaylistItem({ id, thumb, title, artist, nowPlaying }) {
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
     const playState = usePlayPauseState();
+    const playlist = usePlaylistState();
 
     //플레이리스트에서 음악 클릭(재생)
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
         playDispatch({ type: "PLAY" });
-        console.log(nowPlaying);
     }
 
     //플레이리스트에서 음악 삭제
@@ -117,7 +117,14 @@ function PlaylistItem({ id, thumb, title, artist, nowPlaying }) {
         e.stopPropagation();
         playlistDispatch({ type: "REMOVE", id });
         dispatch({ type: 'AFTER_REMOVE', id });
-        playDispatch({ type: "PAUSE" });
+
+        playlist.forEach(item => {
+            if (item.nowPlaying) {
+                if (item.id === id) {
+                    playDispatch({ type: "PAUSE" });
+                }
+            }
+        })
 
         //삭제하고 난 후 playlist의 마지막 곡 재생
         // list.filter(item => item.id !== id).forEach((item, key, arr) => {
