@@ -11,10 +11,10 @@ const LeftControlStyle = styled.div`
     height: 100%;
 `;
 
-function BarLeftControl({ played }) {
+function BarLeftControl({ played, loaded }) {
     return (
         <LeftControlStyle>
-            <LeftControlButtons />
+            <LeftControlButtons loaded={loaded} />
             <TimeInfo played={played} />
         </LeftControlStyle>
     );

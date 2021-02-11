@@ -4,6 +4,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
+import Loader from "react-loader-spinner";
 import { useMusicDispatch, usePlayPauseState, usePlayPauseDispatch } from '../../MusicContext';
 import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
@@ -36,7 +37,8 @@ const PlayPauseButtonStyle = {
     fontSize: "30px"
 }
 
-function LeftControlButtons() {
+function LeftControlButtons({ loaded }) {
+
     const dispatch = useMusicDispatch();
     const play = usePlayPauseState();
     const playDispatch = usePlayPauseDispatch();
@@ -91,8 +93,12 @@ function LeftControlButtons() {
     return (
         <LeftControlButtonsStyle>
             <SkipPreviousIcon style={ButtonStyle} onClick={onPlayPrev} />
-            {play && <PauseIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
-            { !play && <PlayArrowIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />}
+            {loaded === false
+                ? <Loader type="TailSpin" color="#F00" height={30} width={30} margin="0px 0px 0px 8px" />
+                : play ? <PauseIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />
+                    : <PlayArrowIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />
+            }
+
             <SkipNextIcon style={ButtonStyle} onClick={onPlayNext} />
         </LeftControlButtonsStyle>
     );

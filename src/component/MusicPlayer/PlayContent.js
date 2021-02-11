@@ -9,7 +9,8 @@ const PlayContentContainer = styled.div`
     justify-content: center;
 
     img{
-        height:90%;
+        max-width:100%;
+        max-height:100%;
     }
 `;
 
@@ -27,7 +28,7 @@ function PlayContent() {
 
     return (
         <PlayContentContainer className="content">
-            <img src={thumbId} />
+            <img src={thumbId} alt="" />
         </PlayContentContainer>
     );
 };

@@ -19,9 +19,13 @@ const PlayerBarStyle = styled.div`
 
 function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, seeking, player }) {
 
-    const play = usePlayPauseState();
-    const volume = useRef(1);
+    const volume = useRef(0.5);
     const [hover, setHover] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+
+    const _onReady = () => {
+        setLoaded(true);
+    }
 
     const onHoverTrue = () => {
         setHover(true);
@@ -35,10 +39,11 @@ function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, s
         volume.current = volumeValue;
     }
 
+
     return (
         <PlayerBarStyle onClick={onPopToggle} onMouseLeave={onHoverFalse}>
-            <VideoContainer play={play} played={played} _onProgress={_onProgress} _onDuration={_onDuration} seeking={seeking} player={player} volume={volume} />
-            <BarLeftControl play={play} played={played} />
+            <VideoContainer played={played} _onReady={_onReady} _onProgress={_onProgress} _onDuration={_onDuration} seeking={seeking} player={player} volume={volume} setLoaded={setLoaded} />
+            <BarLeftControl played={played} loaded={loaded} />
             <BarMiddleControl />
             <BarRightControl onPopToggle={onPopToggle} open={open} onVolume={onVolume} hover={hover} onHoverTrue={onHoverTrue} />
         </PlayerBarStyle>
