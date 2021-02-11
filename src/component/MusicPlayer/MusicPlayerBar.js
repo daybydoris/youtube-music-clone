@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import BarLeftControl from './BarLeftControl';
 import BarMiddleControl from './BarMiddleControl';
@@ -20,13 +20,27 @@ const PlayerBarStyle = styled.div`
 function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, seeking, player }) {
 
     const play = usePlayPauseState();
+    const volume = useRef(1);
+    const [hover, setHover] = useState(false);
+
+    const onHoverTrue = () => {
+        setHover(true);
+    }
+
+    const onHoverFalse = () => {
+        setHover(false);
+    }
+
+    const onVolume = (volumeValue) => {
+        volume.current = volumeValue;
+    }
 
     return (
-        <PlayerBarStyle onClick={onPopToggle}>
-            <VideoContainer play={play} played={played} _onProgress={_onProgress} _onDuration={_onDuration} seeking={seeking} player={player} />
+        <PlayerBarStyle onClick={onPopToggle} onMouseLeave={onHoverFalse}>
+            <VideoContainer play={play} played={played} _onProgress={_onProgress} _onDuration={_onDuration} seeking={seeking} player={player} volume={volume} />
             <BarLeftControl play={play} played={played} />
             <BarMiddleControl />
-            <BarRightControl onPopToggle={onPopToggle} open={open} />
+            <BarRightControl onPopToggle={onPopToggle} open={open} onVolume={onVolume} hover={hover} onHoverTrue={onHoverTrue} />
         </PlayerBarStyle>
     );
 };

@@ -4,7 +4,7 @@ import { useMusicDispatch, usePlayPauseDispatch } from '../../MusicContext';
 import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
 
-function VideoContainer({ play, played, _onProgress, _onDuration, player }) {
+function VideoContainer({ play, played, _onProgress, _onDuration, player, volume }) {
 
     const playlist = usePlaylistState();
     const dispatch = useMusicDispatch();
@@ -12,6 +12,7 @@ function VideoContainer({ play, played, _onProgress, _onDuration, player }) {
     const playDispatch = usePlayPauseDispatch();
 
     let videoUrl = "";
+
 
     //nowPlaying인 곡의 url 가져오기
     playlist.forEach((item, index) => {
@@ -23,7 +24,7 @@ function VideoContainer({ play, played, _onProgress, _onDuration, player }) {
     const _onEnded = (e) => {
         let id = 0;
 
-        playlist.map((item, index) => {
+        playlist.forEach((item, index) => {
             if (item.nowPlaying) {
                 if (playlist[index + 1]) {
                     id = playlist[index + 1].id;
@@ -39,7 +40,7 @@ function VideoContainer({ play, played, _onProgress, _onDuration, player }) {
 
     return (
         <>
-            <ReactPlayer ref={player} played={played} url={videoUrl} playing={play} onProgress={_onProgress} onEnded={_onEnded} onDuration={_onDuration} width="0" height="0" />
+            <ReactPlayer ref={player} played={played} volume={volume.current} url={videoUrl} playing={play} onProgress={_onProgress} onEnded={_onEnded} onDuration={_onDuration} width="0" height="0" />
         </>
     );
 };

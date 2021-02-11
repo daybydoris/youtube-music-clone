@@ -17,7 +17,7 @@ const initialMusics = [
         id: 2,
         title: "Pretender",
         artist: "official髭男dism",
-        url: "https://youtu.be/TQ8WlA2GXbk",
+        url: "https://www.youtube.com/embed/TQ8WlA2GXbk",
         thumb: HigedanThumb,
         nowPlaying: false,
         playTime: "5:27"
