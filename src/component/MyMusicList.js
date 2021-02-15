@@ -9,8 +9,11 @@ const MusicListBlock = styled.div`
 function MyMusicList() {
     const myMusic = useMyMusicState();
 
-    console.log(myMusic);
-
+    if (myMusic.length < 1) {
+        return (
+            <p>보관함에 담은 곡이 없습니다.</p>
+        );
+    }
     return (
         <MusicListBlock>
             {
