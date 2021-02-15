@@ -48,7 +48,25 @@ function VideoContainer({ played, _onReady, _onProgress, _onDuration, player, vo
 
     return (
         <>
-            <ReactPlayer ref={player} played={played} volume={volume.current} url={videoUrl.current} playing={play} onReady={_onReady} onProgress={_onProgress} onEnded={_onEnded} onDuration={_onDuration} width="0" height="0" />
+            <ReactPlayer
+                ref={player}
+                played={played}
+                volume={volume.current}
+                url={videoUrl.current}
+                playing={play}
+                onReady={_onReady}
+                onProgress={_onProgress}
+                onEnded={_onEnded}
+                onDuration={_onDuration}
+                width="0" height="0"
+                config={{
+                    youtube: {
+                        playerVars: {
+                            "origin": window.location.host
+                        }
+                    }
+                }}
+            />
         </>
     );
 };
