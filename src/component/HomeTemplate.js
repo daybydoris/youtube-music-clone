@@ -10,7 +10,7 @@ const HomeTemplateStyle = styled.div`
     visibility: ${props => props.open ? "hidden" : "visible"};
 `;
 
-function HomeTemplate({ subtitle, title, open, onOpenPop }) {
+function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
 
 
 
@@ -19,7 +19,7 @@ function HomeTemplate({ subtitle, title, open, onOpenPop }) {
             <HomeTemplateStyle open={open}>
                 <p>{subtitle}</p>
                 <h1>{title}</h1>
-                <MusicList onOpenPop={onOpenPop} />
+                <MusicList onOpenPop={onOpenPop} myMusicPop={myMusicPop} />
             </HomeTemplateStyle>
         </div>
     );

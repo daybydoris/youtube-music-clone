@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
+import { useMyMusicDispatch } from '../MyMusicContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -121,15 +122,19 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop }) {
+
+
+function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMusicPop }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
     const playState = usePlayPauseState();
     const list = usePlaylistState();
+    const myMusicDispatch = useMyMusicDispatch();
 
     const [option, setOption] = useState(false);
     const [hover, setHover] = useState(false);
+
 
     // 재생 중 상태로 바꾸고 음악을 플레이리스트에 추가
     const onMusicPlay = () => {
@@ -168,9 +173,11 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop }) {
         }
     }
 
-    // useEffect(() => {
-
-    // }, [nowPlaying]);
+    const onAddMyMusic = () => {
+        myMusicDispatch({ type: 'ADD_MYMUSIC', id, title, artist, thumb, url, nowPlaying });
+        setOption(!option);
+        myMusicPop();
+    }
 
     return (
 
@@ -208,7 +215,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop }) {
                     <QueueMusicIcon style={{ fontSize: "20px", margin: "0 4px" }} />
                     <OptionListText>목록에 추가</OptionListText>
                 </OptionList>
-                <OptionList>
+                <OptionList onClick={onAddMyMusic}>
                     <QueueIcon style={{ fontSize: "20px", margin: "0 4px" }} />
                     <OptionListText>보관함에 추가</OptionListText>
                 </OptionList>

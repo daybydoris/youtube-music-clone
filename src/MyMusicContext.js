@@ -2,16 +2,17 @@ import React, { createContext, useContext, useReducer } from 'react';
 import AkmuThumb from './img/akmuartificialgrass.jpg';
 
 const initialMyMusic = [
-    {
-        id: 1,
-        title: "인공 잔디",
-        artist: "AKMU",
-        url: "https://www.youtube.com/embed/5pK1cnHCPdk",
-        thumb: AkmuThumb,
-        nowPlaying: false,
-        playTime: "3:46"
-    }
+    // {
+    //     id: 1,
+    //     title: "인공 잔디",
+    //     artist: "AKMU",
+    //     url: "https://www.youtube.com/embed/5pK1cnHCPdk",
+    //     thumb: AkmuThumb,
+    //     nowPlaying: false,
+    //     playTime: "3:46"
+    // }
 ];
+
 
 function myMusicReducer(state, action) {
     switch (action.type) {

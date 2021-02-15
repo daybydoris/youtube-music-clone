@@ -35,9 +35,24 @@ const PageContainer = styled.div`
   width:100%;
 `;
 
+const MyMusicAddAlert = styled.div`
+    position: absolute;
+    left: 2%; bottom:10%;
+
+    padding: 12px;
+
+    background: #212121;
+
+    font-size:12px;
+
+    display:${props => props.myMusicAlert ? "block" : "none"};
+`;
+
+
 function App() {
 
   const [open, setOpen] = useState(false);
+  const [myMusicAlert, setMyMusicAlert] = useState(false);
 
   const onPopToggle = () => {
     setOpen(!open);
@@ -50,6 +65,12 @@ function App() {
     setOpen(true);
   }
 
+  const myMusicPop = () => {
+    setMyMusicAlert(true);
+    setTimeout(() => {
+      setMyMusicAlert(false);
+    }, 2000);
+  }
 
   return (
     <MusicProvider>
@@ -59,11 +80,13 @@ function App() {
           <Nav />
           <MyMusicProvider>
             <PageContainer>
-              <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} />} />
-
+              <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
               <Route path="/mymusic" render={() => <MyMusic open={open} />} />
             </PageContainer>
           </MyMusicProvider>
+          <MyMusicAddAlert myMusicAlert={myMusicAlert}>
+            보관함에 음악이 추가되었습니다
+          </MyMusicAddAlert>
           <MusicPlayerTemplate open={open} onPopToggle={onPopToggle} onClosePop={onClosePop} onOpenPop={onOpenPop} />
         </PlayPauseProvider>
       </PlaylistProvider>
