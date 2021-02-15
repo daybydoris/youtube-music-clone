@@ -8,7 +8,7 @@ const initialMusics = [
         id: 1,
         title: "인공 잔디",
         artist: "AKMU",
-        url: "https://youtu.be/5pK1cnHCPdk",
+        url: "https://www.youtube.com/embed/5pK1cnHCPdk",
         thumb: AkmuThumb,
         nowPlaying: false,
         playTime: "3:46"
@@ -26,7 +26,7 @@ const initialMusics = [
         id: 3,
         title: "Start Again",
         artist: "SOOHYUN (from U-KISS)",
-        url: "https://youtu.be/pP6WTt4BK2s",
+        url: "https://www.youtube.com/embed/pP6WTt4BK2s",
         thumb: SoohyunThumb,
         nowPlaying: false,
         playTime: "4:54"

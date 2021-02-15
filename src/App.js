@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import Home from './pages/Home';
 import MyMusic from './pages/MyMusic';
@@ -7,6 +7,7 @@ import MusicPlayerTemplate from './component/MusicPlayer/MusicPlayerTemplate';
 import styled, { createGlobalStyle } from 'styled-components';
 import { MusicProvider, PlayPauseProvider } from './MusicContext';
 import { PlaylistProvider } from './PlaylistContext';
+import { MyMusicProvider } from './MyMusicContext';
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -58,7 +59,9 @@ function App() {
           <Nav />
           <PageContainer>
             <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} />} />
-            <Route path="/mymusic" render={() => <MyMusic open={open} />} />
+            <MyMusicProvider>
+              <Route path="/mymusic" render={() => <MyMusic open={open} />} />
+            </MyMusicProvider>
           </PageContainer>
           <MusicPlayerTemplate open={open} onPopToggle={onPopToggle} onClosePop={onClosePop} onOpenPop={onOpenPop} />
         </PlayPauseProvider>
