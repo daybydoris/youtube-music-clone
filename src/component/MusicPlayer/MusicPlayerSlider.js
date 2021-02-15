@@ -99,7 +99,7 @@ const SliderContainer = styled.div`
 
 function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChange, _onSeekMouseUp, player, _onSeek }) {
     const sliderCon = useRef();
-    const [hoverTime, setHoverTime] = useState();
+    const hoverTime = useRef();
     const [hoveredX, setHoveredX] = useState();
 
     let currentWidth = (100 / playingTime) * played;
@@ -148,7 +148,7 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
             }
         }
 
-        setHoverTime(`${minutes}:${seconds}`);
+        hoverTime.current = `${minutes}:${seconds}`;
     }
     return (
         <PlayerSlide>
@@ -163,7 +163,7 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
                     </Draggable>
                 </PlayingSlide>
                 <TimeBox position={hoveredX}>
-                    {hoverTime}
+                    {hoverTime.current}
                 </TimeBox>
             </SliderContainer>
         </PlayerSlide >
