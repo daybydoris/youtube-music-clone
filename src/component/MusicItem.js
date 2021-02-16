@@ -179,7 +179,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
         const isSame = myMusicState.some(song => song.id === id);
 
         if (!isSame) {
-            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying, localIndex }));
+            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying: false, localIndex }));
             myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
             myMusicPop('add');
         } else {
