@@ -3,7 +3,7 @@ import AkmuThumb from './img/akmuartificialgrass.jpg';
 import HigedanThumb from './img/higedanpretender.jpg';
 import SoohyunThumb from './img/soohyunstartagain.jpg';
 
-const initialMusics = [
+const musics = [
     {
         id: 1,
         title: "인공 잔디",
@@ -32,6 +32,59 @@ const initialMusics = [
         playTime: "4:54"
     }
 ];
+
+const initialMusics = [
+    {
+        id: 1,
+        title: "Fear",
+        artist: "Your Friend, Ghost",
+        url: "https://soundcloud.com/yourfriendghost845/fear",
+        thumb: "https://i1.sndcdn.com/artworks-AjjIozW7a47A0nyN-I67nkg-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "4:30",
+        copyright: ""
+    },
+    {
+        id: 2,
+        title: "Sick & Tired",
+        artist: "Leonell Cassio",
+        url: "https://api.soundcloud.com/tracks/984101719",
+        thumb: "https://i1.sndcdn.com/artworks-qyEY2yX2zat5HLs2-uhRMTg-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "3:57",
+        copyright: ""
+    },
+    {
+        id: 3,
+        title: "It's Not Christmas Time (Without You)",
+        artist: "RYYZN",
+        url: "https://api.soundcloud.com/tracks/723377419",
+        thumb: "https://i1.sndcdn.com/artworks-000647785291-ldalj9-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "2:45",
+        copyright: ""
+    },
+    {
+        id: 4,
+        title: "Heartfül Of Kerøsene",
+        artist: "Jeff II",
+        url: "https://api.soundcloud.com/tracks/777782659",
+        thumb: "https://i1.sndcdn.com/artworks-P6r5mMiGWJYrzJMo-nyzuDg-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "2:40",
+        copyright: ""
+    },
+    {
+        id: 5,
+        title: "Void Edge",
+        artist: "Lesion X",
+        url: "https://api.soundcloud.com/tracks/831275836",
+        thumb: "https://i1.sndcdn.com/artworks-zmdzmfKkkPWz4Mu9-GlDoUQ-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "3:12",
+        copyright: "Void Edge - Lesion X https://soundcloud.com/lesionxbeats\r\nCreative Commons — Attribution 3.0 Unported — CC BY 3.0\r\nFree Download / Stream: https://bit.ly/al-void-edge\r\nMusic promoted by Audio Library https://youtu.be/qd_2lX_bwPY\r\n"
+    }
+]
 
 
 function musicReducer(state, action) {
