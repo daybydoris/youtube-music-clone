@@ -1,30 +1,32 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import AkmuThumb from './img/akmuartificialgrass.jpg';
 
-const initialMyMusic = [
-    // {
-    //     id: 1,
-    //     title: "인공 잔디",
-    //     artist: "AKMU",
-    //     url: "https://www.youtube.com/embed/5pK1cnHCPdk",
-    //     thumb: AkmuThumb,
-    //     nowPlaying: false,
-    //     playTime: "3:46"
-    // }
-];
+let initialMyMusic = [];
 
+for (let i = 0; i < localStorage.length; i++) {
+    initialMyMusic.push(JSON.parse(localStorage.getItem(i)));
+}
 
 function myMusicReducer(state, action) {
     switch (action.type) {
+
         case "ADD_MYMUSIC":
-            return state.some(song => song.id === action.id) ? state : [...state, { id: action.id, title: action.title, artist: action.artist, thumb: action.thumb, url: action.url, nowPlaying: action.nowPlaying }];
+            //localStorage에서 추가한 곡 받아와서 뿌리기
+            let item = JSON.parse(localStorage.getItem(action.localIndex));
+            return [...state, item];
+
+        // state.some(song => song.id === action.id) ? state : [...state, { id: action.id, title: action.title, artist: action.artist, thumb: action.thumb, url: action.url, nowPlaying: action.nowPlaying }];
         case 'SET_NOWPLAYING':
-            //이미 리스트에 추가되어 있는 음악이면 리스트에 또 추가하지 말고 재생만 함.
             //나머지 곡들의 nowPlaying은 false로 만듦.
-            return state.map(song => song.id === action.id ? { ...song, nowPlaying: true } : { ...song, nowPlaying: false });
-        case 'REMOVE':
+            state.forEach(song => song.localIndex === action.localIndex ? localStorage.setItem(action.localIndex, JSON.stringify({ ...song, nowPlaying: true })) : localStorage.setItem(action.localIndex, JSON.stringify({ ...song, nowPlaying: false })));
+
+            return state.map(song => song);
+        // case 'REMOVE_PLAYLIST':
+        //     state.forEach(song => song.localIndex === action.localIndex ? localStorage.setItem(action.localIndex, JSON.stringify({ ...song, nowPlaying: false })) : song);
+        //     return state.map(song => song);
+        case 'REMOVE_MYMUSIC':
             //리스트에서 곡 삭제
-            return state.filter(song => song.id !== action.id);
+            localStorage.removeItem(action.localIndex);
+            return state.filter(song => song.localIndex !== action.localIndex);
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
     }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MusicList from './MusicList';
 import styled from 'styled-components';
 
@@ -11,15 +11,22 @@ const HomeTemplateStyle = styled.div`
 `;
 
 function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
+    const [localIndex, setLocalIndex] = useState(0);
 
-
+    if (localStorage.length > 0) {
+        for (let i = 0; i < localStorage.length; i++) {
+            if (Number(localIndex) <= Number(localStorage.key(i))) {
+                setLocalIndex(localStorage.length);
+            }
+        }
+    }
 
     return (
         <div>
             <HomeTemplateStyle open={open}>
                 <p>{subtitle}</p>
                 <h1>{title}</h1>
-                <MusicList onOpenPop={onOpenPop} myMusicPop={myMusicPop} />
+                <MusicList onOpenPop={onOpenPop} myMusicPop={myMusicPop} localIndex={localIndex} />
             </HomeTemplateStyle>
         </div>
     );

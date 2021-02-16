@@ -8,6 +8,7 @@ const MyMusicTemplateStyle = styled.div`
 `;
 
 function MyMusicTemplate() {
+
     return (
         <MyMusicTemplateStyle>
             <h1>보관함에 담은 음악</h1>

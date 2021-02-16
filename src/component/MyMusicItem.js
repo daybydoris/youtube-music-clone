@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
+import { useMyMusicDispatch } from '../MyMusicContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -121,12 +122,13 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MyMusicItem({ id, title, thumb, artist, url, nowPlaying }) {
+function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
     const playState = usePlayPauseState();
     const list = usePlaylistState();
+    const myMusicDispatch = useMyMusicDispatch();
 
     const [option, setOption] = useState(false);
     const [hover, setHover] = useState(false);
@@ -135,6 +137,7 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying }) {
         dispatch({ type: "PLAY", id });
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
+        myMusicDispatch({ type: "SET_NOWPLAYING", localIndex });
         playDispatch({ type: 'PLAY' });
         // if (list.length === 0) {
         //     onOpenPop();
@@ -165,6 +168,11 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying }) {
         } else {
             playDispatch({ type: 'PLAY' });
         }
+    }
+
+    const onMyMusicRemove = () => {
+        myMusicDispatch({ type: 'REMOVE_MYMUSIC', localIndex });
+        setOption(!option);
     }
 
     return (
@@ -202,9 +210,9 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying }) {
                     <QueueMusicIcon style={{ fontSize: "20px", margin: "0 4px" }} />
                     <OptionListText>목록에 추가</OptionListText>
                 </OptionList>
-                <OptionList>
+                <OptionList onClick={onMyMusicRemove}>
                     <QueueIcon style={{ fontSize: "20px", margin: "0 4px" }} />
-                    <OptionListText>보관함에 추가</OptionListText>
+                    <OptionListText>보관함에서 삭제</OptionListText>
                 </OptionList>
             </OptionBox>}
             <ItemInfo>

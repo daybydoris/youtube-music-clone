@@ -124,12 +124,13 @@ const NowPlayingIcon = {
 
 
 
-function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMusicPop }) {
+function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMusicPop, localIndex }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
     const playState = usePlayPauseState();
     const list = usePlaylistState();
+
     const myMusicDispatch = useMyMusicDispatch();
 
     const [option, setOption] = useState(false);
@@ -145,6 +146,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
         if (list.length === 0) {
             onOpenPop();
         }
+        myMusicDispatch({ type: 'SET_NOWPLAYING', localIndex });
     }
 
     const onJustAdd = () => {
@@ -174,7 +176,9 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
     }
 
     const onAddMyMusic = () => {
-        myMusicDispatch({ type: 'ADD_MYMUSIC', id, title, artist, thumb, url, nowPlaying });
+        localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying, localIndex }));
+        myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
+
         setOption(!option);
         myMusicPop();
     }

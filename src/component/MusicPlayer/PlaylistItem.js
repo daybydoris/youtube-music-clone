@@ -5,6 +5,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import PauseIcon from '@material-ui/icons/Pause';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../../PlaylistContext';
+import { useMyMusicDispatch } from '../../MyMusicContext';
 
 const RemoveItem = styled.div`
     font-size: 12px;

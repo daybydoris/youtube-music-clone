@@ -8,7 +8,7 @@ const MusicListBlock = styled.div`
     display:flex;
 `;
 
-function MusicList({ onOpenPop, myMusicPop }) {
+function MusicList({ onOpenPop, myMusicPop, localIndex }) {
 
     const songs = useMusicState();
 
@@ -26,6 +26,7 @@ function MusicList({ onOpenPop, myMusicPop }) {
                         nowPlaying={song.nowPlaying}
                         onOpenPop={onOpenPop}
                         myMusicPop={myMusicPop}
+                        localIndex={localIndex}
                     />
                 ))}
         </MusicListBlock>
