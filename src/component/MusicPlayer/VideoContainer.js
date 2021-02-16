@@ -25,12 +25,10 @@ function VideoContainer({ played, _onReady, _onProgress, _onDuration, player, vo
     //곡을 바꾸면 loader 나오게 함
     useEffect(() => {
         setLoaded(false);
-    }, [videoUrl.current]);
+    }, [setLoaded]);
 
     const _onEnded = (e) => {
         let id = 0;
-
-        setLoaded(false);
 
         playlist.forEach((item, index) => {
             if (item.nowPlaying) {

@@ -6,10 +6,8 @@ import MyMusicItem from './MyMusicItem';
 const MusicListBlock = styled.div`
     display: flex;
 `;
-function MyMusicList() {
+function MyMusicList({ myMusicPop }) {
     const myMusic = useMyMusicState();
-
-    console.log(myMusic);
 
     if (myMusic.length < 1) {
         return (
@@ -29,6 +27,7 @@ function MyMusicList() {
                         url={song.url}
                         nowPlaying={song.nowPlaying}
                         localIndex={song.localIndex}
+                        myMusicPop={myMusicPop}
                     />
                 ))
             }

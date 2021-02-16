@@ -40,19 +40,23 @@ const MyMusicAddAlert = styled.div`
     left: 2%; bottom:10%;
 
     padding: 12px;
-
     background: #212121;
-
     font-size:12px;
+    border-radius:2px;
 
-    display:${props => props.myMusicAlert ? "block" : "none"};
+    display:${props => props.alert ? "block" : "none"};
 `;
 
 
 function App() {
 
   const [open, setOpen] = useState(false);
-  const [myMusicAlert, setMyMusicAlert] = useState(false);
+  const [myMusicAlert, setMyMusicAlert] = useState({
+    alert: false,
+    text: ""
+  });
+
+  const { alert, text } = myMusicAlert;
 
   const onPopToggle = () => {
     setOpen(!open);
@@ -65,11 +69,25 @@ function App() {
     setOpen(true);
   }
 
-  const myMusicPop = () => {
-    setMyMusicAlert(true);
-    setTimeout(() => {
-      setMyMusicAlert(false);
-    }, 2000);
+  const myMusicPop = (action) => {
+
+    if (action === 'add') {
+      setMyMusicAlert({ ...myMusicAlert, alert: true, text: "보관함에 음악이 추가되었습니다" });
+      setTimeout(() => {
+        setMyMusicAlert({ ...myMusicAlert, alert: false, text: "" });
+      }, 2000);
+    } else if (action === 'remove') {
+      setMyMusicAlert({ ...myMusicAlert, alert: true, text: "보관함에서 음악이 삭제되었습니다" });
+      setTimeout(() => {
+        setMyMusicAlert({ ...myMusicAlert, alert: false, text: "" });
+      }, 2000);
+    } else if (action === 'duplicate') {
+      setMyMusicAlert({ ...myMusicAlert, alert: true, text: "이미 보관함에 추가된 음악입니다" });
+      setTimeout(() => {
+        setMyMusicAlert({ ...myMusicAlert, alert: false, text: "" });
+      }, 2000);
+    }
+
   }
 
   return (
@@ -81,11 +99,11 @@ function App() {
           <MyMusicProvider>
             <PageContainer>
               <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
-              <Route path="/mymusic" render={() => <MyMusic open={open} />} />
+              <Route path="/mymusic" render={() => <MyMusic open={open} myMusicPop={myMusicPop} />} />
             </PageContainer>
           </MyMusicProvider>
-          <MyMusicAddAlert myMusicAlert={myMusicAlert}>
-            보관함에 음악이 추가되었습니다
+          <MyMusicAddAlert alert={alert}>
+            {text}
           </MyMusicAddAlert>
           <MusicPlayerTemplate open={open} onPopToggle={onPopToggle} onClosePop={onClosePop} onOpenPop={onOpenPop} />
         </PlayPauseProvider>

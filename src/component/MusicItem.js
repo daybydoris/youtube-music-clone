@@ -181,7 +181,9 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
         if (!isSame) {
             localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying, localIndex }));
             myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
-            myMusicPop();
+            myMusicPop('add');
+        } else {
+            myMusicPop('duplicate');
         }
 
         setOption(!option);

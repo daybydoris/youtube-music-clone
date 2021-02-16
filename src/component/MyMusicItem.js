@@ -122,7 +122,7 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex }) {
+function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex, myMusicPop }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
@@ -137,7 +137,7 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex }) 
         dispatch({ type: "PLAY", id });
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
-        myMusicDispatch({ type: "SET_NOWPLAYING", localIndex });
+        // myMusicDispatch({ type: "SET_NOWPLAYING", localIndex });
         playDispatch({ type: 'PLAY' });
         // if (list.length === 0) {
         //     onOpenPop();
@@ -173,6 +173,7 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex }) 
     const onMyMusicRemove = () => {
         myMusicDispatch({ type: 'REMOVE_MYMUSIC', localIndex });
         setOption(!option);
+        myMusicPop('remove');
     }
 
     return (

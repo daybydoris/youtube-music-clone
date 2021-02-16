@@ -21,8 +21,6 @@ function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
         }
     }
 
-    console.log(localIndex);
-
     return (
         <div>
             <HomeTemplateStyle open={open}>

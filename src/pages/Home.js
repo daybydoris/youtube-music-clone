@@ -25,7 +25,6 @@ const HomeStyle = styled.div`
 function Home({ open, onOpenPop, myMusicPop }) {
 
 
-
     return (
         <HomeStyle>
             {HomeTemplateList.map(list => (
