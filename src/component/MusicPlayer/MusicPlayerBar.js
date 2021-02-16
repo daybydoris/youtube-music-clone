@@ -17,15 +17,11 @@ const PlayerBarStyle = styled.div`
 
 // 재생 중인 음악 컨트롤, 음악 정보가 나오는 플레이어바
 
-function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, seeking, player }) {
+function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, seeking, player, loaded, setLoaded, _onReady }) {
 
     const volume = useRef(0.5);
     const [hover, setHover] = useState(false);
-    const [loaded, setLoaded] = useState(false);
 
-    const _onReady = () => {
-        setLoaded(true);
-    }
 
     const onHoverTrue = () => {
         setHover(true);

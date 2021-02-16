@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import ReactPlayer from 'react-player/youtube';
+import ReactPlayer from 'react-player/soundcloud';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../../MusicContext';
 import { usePlaylistState, usePlaylistDispatch } from '../../PlaylistContext';
 
@@ -56,12 +56,11 @@ function VideoContainer({ played, _onReady, _onProgress, _onDuration, player, vo
                 onProgress={_onProgress}
                 onEnded={_onEnded}
                 onDuration={_onDuration}
-                width="0" height="0"
+                width="1px" height="0"
                 config={{
-                    youtube: {
-                        playerVars: {
-                            "origin": window.location.host
-                        }
+                    soundcloud: {
+                        auto_play: true,
+                        show_artwork: false
                     }
                 }}
             />

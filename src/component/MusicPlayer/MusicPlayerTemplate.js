@@ -20,6 +20,12 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
     const [played, setPlayed] = useState(0);
     const [playingTime, setPlayingTime] = useState(0);
     const [seeking, setSeeking] = useState(false);
+    const [loaded, setLoaded] = useState(false);
+
+    const _onReady = (e) => {
+        setLoaded(true);
+        setPlayingTime(player.current.getDuration());
+    }
 
     const list = usePlaylistState();
     const player = useRef(null);
@@ -32,6 +38,7 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
 
     const _onDuration = (duration) => {
         setPlayingTime(duration);
+        console.log('duration saved', duration);
     }
 
     const _onSeek = (player) => {
@@ -62,7 +69,7 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
             <MusicPlayerPop open={open} />
             <PlayerStyle>
                 <MusicPlayerSlider played={played} playingTime={playingTime} _onSeekMouseDown={_onSeekMouseDown} _onSeekChange={_onSeekChange} _onSeekMouseUp={_onSeekMouseUp} player={player} />
-                <MusicPlayerBar onPopToggle={onPopToggle} open={open} _onProgress={_onProgress} _onDuration={_onDuration} played={played} seeking={seeking} _onSeek={_onSeek} player={player} />
+                <MusicPlayerBar onPopToggle={onPopToggle} open={open} _onProgress={_onProgress} _onDuration={_onDuration} played={played} seeking={seeking} _onSeek={_onSeek} player={player} loaded={loaded} setLoaded={setLoaded} _onReady={_onReady} />
             </PlayerStyle>
         </>
         )
