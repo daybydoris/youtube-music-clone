@@ -15,11 +15,13 @@ function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
 
     if (localStorage.length > 0) {
         for (let i = 0; i < localStorage.length; i++) {
-            if (Number(localIndex) <= Number(localStorage.key(i))) {
-                setLocalIndex(localStorage.length);
+            if (localIndex <= JSON.parse(localStorage.key(i))) {
+                setLocalIndex(JSON.parse(localStorage.key(i)) + 1);
             }
         }
     }
+
+    console.log(localIndex);
 
     return (
         <div>

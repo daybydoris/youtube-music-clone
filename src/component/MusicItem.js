@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
-import { useMyMusicDispatch } from '../MyMusicContext';
+import { useMyMusicDispatch, useMyMusicState } from '../MyMusicContext';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -131,6 +131,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
     const playState = usePlayPauseState();
     const list = usePlaylistState();
 
+    const myMusicState = useMyMusicState();
     const myMusicDispatch = useMyMusicDispatch();
 
     const [option, setOption] = useState(false);
@@ -146,7 +147,6 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
         if (list.length === 0) {
             onOpenPop();
         }
-        myMusicDispatch({ type: 'SET_NOWPLAYING', localIndex });
     }
 
     const onJustAdd = () => {
@@ -176,11 +176,15 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
     }
 
     const onAddMyMusic = () => {
-        localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying, localIndex }));
-        myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
+        const isSame = myMusicState.some(song => song.id === id);
+
+        if (!isSame) {
+            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying, localIndex }));
+            myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
+            myMusicPop();
+        }
 
         setOption(!option);
-        myMusicPop();
     }
 
     return (
