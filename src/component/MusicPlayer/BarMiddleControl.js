@@ -26,7 +26,7 @@ const MusicTitleArtist = styled.div`
     justify-content: space-between;
     margin-left: 12px;
 
-    font-size:14px;
+    font-size:16px;
 `;
 
 
@@ -39,7 +39,7 @@ function BarMiddleControl() {
                 return song.nowPlaying
             }).map(song => (
                 <MusicInfoContainer key={song.id}>
-                    <img src={song.thumb} style={{ height: "35px", borderRadius: "4px" }} alt="" />
+                    <img src={song.thumb} style={{ height: "40px", borderRadius: "4px" }} alt="" />
                     <MusicTitleArtist>
                         <div>{song.title}</div>
                         <div style={{ color: "#ffffffb3" }}>{song.artist}</div>

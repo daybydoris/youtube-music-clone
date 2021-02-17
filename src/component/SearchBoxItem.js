@@ -11,7 +11,7 @@ const ItemContainer = styled.div`
 
 const ItemText = styled.div`
     flex:1;
-    font-size: 12px;
+    font-size: 16px;
     color:#ffffff80;
 `;
 
@@ -26,7 +26,7 @@ const RemoveButton = styled.button`
     outline: none;
     border: none;
 
-    font-size: 10px;
+    font-size: 12px;
     color:#ffffff80;
 
     cursor: pointer;

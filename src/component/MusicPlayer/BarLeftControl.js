@@ -5,9 +5,9 @@ import TimeInfo from './TimeInfo';
 
 const LeftControlStyle = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
-    width:20%;
+    width:300px;
     height: 100%;
 `;
 

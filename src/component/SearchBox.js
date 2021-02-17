@@ -34,6 +34,8 @@ const SearchInput = styled.input`
     outline: none;
 
     color: #fff;
+
+    font-size:16px;
 `;
 
 const ArrowStyle = {

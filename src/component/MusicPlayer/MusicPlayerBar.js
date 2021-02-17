@@ -9,8 +9,9 @@ import VideoContainer from './VideoContainer';
 const PlayerBarStyle = styled.div`
     display: flex;
     background:#212121;
-    height:60px;
+    height:72px;
 
+    justify-content: space-around;
     position: relative;
 `;
 

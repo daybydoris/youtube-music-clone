@@ -24,7 +24,7 @@ const ButtonStyle = {
     border: "none",
     outline: "none",
     cursor: "pointer",
-    fontSize: "20px"
+    fontSize: "25px"
 }
 
 const VolumeControl = styled.div`
@@ -32,7 +32,7 @@ const VolumeControl = styled.div`
     height: 24px;
     position: absolute;
 
-    left:-10%; top:30%;
+    left:-10%; top:35%;
 
     visibility: ${props => props.hover ? "visible" : "hidden"};
 `;

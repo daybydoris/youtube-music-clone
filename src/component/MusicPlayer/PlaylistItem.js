@@ -20,8 +20,8 @@ const MusicItemContainer = styled.li`
     list-style: none;
     border-bottom: 1px solid #ffffff30;
 
-    height: 55px;
-    padding: 0px 8px;
+    height: 57px;
+    padding: 0 8px;
 
     cursor: pointer;
 
@@ -50,7 +50,7 @@ const MusicItemContainer = styled.li`
 
 const Info = styled.p`
     margin: 2px 0;
-    font-size: 12px;
+    font-size: 14px;
 `;
 
 const ItemThumb = styled.img`
@@ -179,7 +179,7 @@ function PlaylistItem({ id, thumb, title, artist, nowPlaying }) {
             </ThumbBox>
             <div className="item-info">
                 <Info>{title}</Info>
-                <Info>{artist}</Info>
+                <Info style={{ color: "#ffffffb3" }}>{artist}</Info>
             </div>
             <RemoveItem onClick={onRemove}>삭제</RemoveItem>
         </MusicItemContainer>

@@ -19,7 +19,7 @@ const PlaylistTab = styled.div`
 
     border-bottom:2px solid #fff;
 
-    font-size:12px;
+    font-size:16px;
 `;
 
 function Playlist() {

@@ -56,7 +56,7 @@ function VideoContainer({ played, _onReady, _onProgress, _onDuration, player, vo
                 onProgress={_onProgress}
                 onEnded={_onEnded}
                 onDuration={_onDuration}
-                width="1px" height="0"
+                width="0" height="0"
                 config={{
                     soundcloud: {
                         auto_play: true,

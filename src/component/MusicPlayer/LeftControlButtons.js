@@ -24,7 +24,7 @@ const ButtonStyle = {
     border: "none",
     outline: "none",
     cursor: "pointer",
-    fontSize: "20px"
+    fontSize: "25px"
 }
 
 const PlayPauseButtonStyle = {
@@ -34,7 +34,7 @@ const PlayPauseButtonStyle = {
     border: "none",
     outline: "none",
     cursor: "pointer",
-    fontSize: "30px"
+    fontSize: "40px"
 }
 
 function LeftControlButtons({ loaded }) {

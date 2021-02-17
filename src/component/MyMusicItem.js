@@ -85,7 +85,7 @@ const ThumbBox = styled.div`
 `;
 
 const ItemBox = styled.div`
-    width:180px;
+    width:220px;
     display:flex;
     flex-direction: column;
     align-items: left;
@@ -101,12 +101,12 @@ const ItemInfo = styled.div`
 `;
 
 const ItemTitle = styled.div`
-    font-weight: bold;
-    font-size:12px;
+    font-weight: 500;
+    font-size:16px;
 `;
 
 const ItemArtist = styled.div`
-    font-size:12px;
+    font-size:16px;
 `;
 
 const ItemThumb = styled.img`

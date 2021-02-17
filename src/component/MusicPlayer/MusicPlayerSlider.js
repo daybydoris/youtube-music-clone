@@ -38,8 +38,10 @@ const RedDot = styled.div`
 
     position: absolute;
     right:0; top:0;
-    width:10px;
-    height:10px;
+
+    transform: translate(50%,-40%);
+    width:12px;
+    height:12px;
 
     display: none;
 
@@ -78,11 +80,11 @@ const SliderContainer = styled.div`
 
     &:hover{
         ${DurationSlide}{
-            height:2.2px;
+            height:2.5px;
             background:rgba(255,255,255, 0.4);
         }
         ${PlayingSlide}{
-            height:2.2px;
+            height:2.5px;
         }
         ${RedDot}{
             display: initial;
@@ -155,12 +157,7 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
             <SliderContainer ref={sliderCon} className="slider-con" onClick={onTimeSeek} onMouseMove={onHover} playingTime={playingTime} played={played}>
                 <DurationSlide />
                 <PlayingSlide currentWidth={currentWidth}>
-                    <Draggable
-                        axis="x"
-                        defaultPosition={{ x: 2, y: -3 }}
-                    >
-                        <RedDot className="red-dot" />
-                    </Draggable>
+                    <RedDot className="red-dot" />
                 </PlayingSlide>
                 <TimeBox position={hoveredX}>
                     {hoverTime.current}
