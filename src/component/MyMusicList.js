@@ -2,10 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { useMyMusicState } from '../MyMusicContext';
 import MyMusicItem from './MyMusicItem';
+import Slider from "react-slick";
 
 const MusicListBlock = styled.div`
-    display: flex;
+    .slick-track{
+    }
+    .slick-slide{
+        min-width:220px;
+    }
 `;
+
+const settings = {
+    arrows: true,
+    dots: false,
+    infinite: false,
+    slidesToShow: 5
+}
+
 function MyMusicList({ myMusicPop, onOpenPop }) {
     const myMusic = useMyMusicState();
 
@@ -16,23 +29,25 @@ function MyMusicList({ myMusicPop, onOpenPop }) {
     }
     return (
         <MusicListBlock>
-            {
-                myMusic.map((song, key) => (
-                    <MyMusicItem
-                        key={key}
-                        id={song.id}
-                        title={song.title}
-                        artist={song.artist}
-                        thumb={song.thumb}
-                        url={song.url}
-                        nowPlaying={song.nowPlaying}
-                        copyright={song.copyright}
-                        localIndex={song.localIndex}
-                        myMusicPop={myMusicPop}
-                        onOpenPop={onOpenPop}
-                    />
-                ))
-            }
+            <Slider {...settings}>
+                {
+                    myMusic.map((song, key) => (
+                        <MyMusicItem
+                            key={key}
+                            id={song.id}
+                            title={song.title}
+                            artist={song.artist}
+                            thumb={song.thumb}
+                            url={song.url}
+                            nowPlaying={song.nowPlaying}
+                            copyright={song.copyright}
+                            localIndex={song.localIndex}
+                            myMusicPop={myMusicPop}
+                            onOpenPop={onOpenPop}
+                        />
+                    ))
+                }
+            </Slider>
         </MusicListBlock>
     );
 }
