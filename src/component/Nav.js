@@ -10,8 +10,9 @@ const NavContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     width:100%;
+    height:64px;
 
-    padding:8px;
+    padding:8px 16px;
     background: #030303;
 
     z-index:999;
@@ -25,6 +26,8 @@ const MenuContainer = styled.div`
 
     list-style:none;
     width:30%;
+
+    font-size:20px;
 `;
 
 const SearchButton = styled.div`
@@ -36,7 +39,7 @@ const activeStyle = {
     color: "#fff"
 }
 
-function Nav() {
+function Nav({ onClosePop }) {
     const [open, setOpen] = useState(false);
 
     console.log(open);
@@ -51,11 +54,11 @@ function Nav() {
     return (
         <NavContainer>
             <div className="logo">
-                <Link to="/"><img src="https://music.youtube.com/img/on_platform_logo_dark.svg" /></Link>
+                <Link to="/" onClick={onClosePop}><img src="https://music.youtube.com/img/on_platform_logo_dark.svg" alt="" /></Link>
             </div>
             <MenuContainer>
-                <NavLink to="/" activeStyle={activeStyle} exact>홈</NavLink>
-                <NavLink to="/mymusic" activeStyle={activeStyle} exact>보관함</NavLink>
+                <NavLink to="/" onClick={onClosePop} activeStyle={activeStyle} exact>홈</NavLink>
+                <NavLink to="/mymusic" onClick={onClosePop} activeStyle={activeStyle} exact>보관함</NavLink>
                 <SearchButton onClick={onSearchOpen}>
                     검색
                 </SearchButton>

@@ -95,7 +95,7 @@ function App() {
       <PlaylistProvider>
         <PlayPauseProvider>
           <GlobalStyle />
-          <Nav />
+          <Nav onClosePop={onClosePop} />
           <MyMusicProvider>
             <PageContainer>
               <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
