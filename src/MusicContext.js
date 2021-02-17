@@ -42,7 +42,11 @@ const initialMusics = [
         thumb: "https://i1.sndcdn.com/artworks-AjjIozW7a47A0nyN-I67nkg-t500x500.jpg",
         nowPlaying: false,
         playTime: "4:30",
-        copyright: ""
+        copyright: `Fear by Your Friend, Ghost
+        https://soundcloud.com/yourfriendghost845
+        Creative Commons — Attribution 3.0 Unported — CC BY 3.0
+        Free Download / Stream: https://bit.ly/al_fear
+        Music promoted by Audio Library https://youtu.be/5J7OXxL_Ccg`
     },
     {
         id: 2,
@@ -52,7 +56,7 @@ const initialMusics = [
         thumb: "https://i1.sndcdn.com/artworks-qyEY2yX2zat5HLs2-uhRMTg-t500x500.jpg",
         nowPlaying: false,
         playTime: "3:57",
-        copyright: ""
+        copyright: "Sick & Tired (ft. Lily Hain) by Leonell Cassio\r\nhttps://soundcloud.com/leonellcassio\r\nCreative Commons — Attribution-ShareAlike 3.0 Unported — CC BY-SA 3.0\r\nFree Download / Stream: http://bit.ly/-sick-and-tired\r\nMusic promoted by Audio Library https://youtu.be/zjN-yYLBHTw"
     },
     {
         id: 3,
@@ -62,7 +66,7 @@ const initialMusics = [
         thumb: "https://i1.sndcdn.com/artworks-000647785291-ldalj9-t500x500.jpg",
         nowPlaying: false,
         playTime: "2:45",
-        copyright: ""
+        copyright: "It's Not Christmas Time (Without You) [feat. Kimmy Baggins] by RYYZN\r\nhttps://soundcloud.com/ryyzn\r\nCreative Commons — Attribution 3.0 Unported — CC BY 3.0\r\nFree Download / Stream: its-not-christmas-time-without-you\r\nMusic promoted by Audio Library https://youtu.be/B4RqeAvE7iA"
     },
     {
         id: 4,
@@ -72,7 +76,7 @@ const initialMusics = [
         thumb: "https://i1.sndcdn.com/artworks-P6r5mMiGWJYrzJMo-nyzuDg-t500x500.jpg",
         nowPlaying: false,
         playTime: "2:40",
-        copyright: ""
+        copyright: "Heartfül of Kerøsene - Jeff II https://youtu.be/ZbyFsGMjfRg\r\nCreative Commons Attribution\r\nFree Download / Stream: https://bit.ly/al-heartful-of-kersene\r\nMusic promoted by Audio Library https://youtu.be/y-tbE2FIA1o"
     },
     {
         id: 5,

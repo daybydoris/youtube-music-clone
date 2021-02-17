@@ -85,7 +85,7 @@ const ThumbBox = styled.div`
 `;
 
 const ItemBox = styled.div`
-    width:180px;
+    width:220px;
     display:flex;
     flex-direction: column;
     align-items: left;
@@ -101,12 +101,13 @@ const ItemInfo = styled.div`
 `;
 
 const ItemTitle = styled.div`
-    font-weight: bold;
-    font-size:12px;
+    font-weight: 500;
+    font-size:16px;
 `;
 
 const ItemArtist = styled.div`
-    font-size:12px;
+    font-size:16px;
+    color:#ffffffb3;
 `;
 
 const ItemThumb = styled.img`
@@ -124,7 +125,7 @@ const NowPlayingIcon = {
 
 
 
-function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMusicPop, localIndex }) {
+function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpenPop, myMusicPop, localIndex }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
@@ -141,7 +142,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
     // 재생 중 상태로 바꾸고 음악을 플레이리스트에 추가
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });
-        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
+        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying, copyright });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
         playDispatch({ type: 'PLAY' });
         if (list.length === 0) {
@@ -150,7 +151,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
     }
 
     const onJustAdd = () => {
-        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
+        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying, copyright });
         setOption(!option);
     }
     const onMore = (e) => {
@@ -179,7 +180,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, onOpenPop, myMus
         const isSame = myMusicState.some(song => song.id === id);
 
         if (!isSame) {
-            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying: false, localIndex }));
+            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying: false, copyright, localIndex }));
             myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
             myMusicPop('add');
         } else {

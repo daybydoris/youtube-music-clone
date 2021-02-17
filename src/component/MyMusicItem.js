@@ -122,7 +122,7 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex, myMusicPop }) {
+function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, localIndex, myMusicPop, onOpenPop }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
@@ -135,13 +135,13 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, localIndex, my
 
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });
-        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying });
+        playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying, copyright });
         playlistDispatch({ type: "SET_NOWPLAYING", id });
         // myMusicDispatch({ type: "SET_NOWPLAYING", localIndex });
         playDispatch({ type: 'PLAY' });
-        // if (list.length === 0) {
-        //     onOpenPop();
-        // }
+        if (list.length === 0) {
+            onOpenPop();
+        }
     }
 
     const onJustAdd = () => {

@@ -8,7 +8,7 @@ function playlistReducer(list, action) {
     switch (action.type) {
         case 'ADD_PLAYLIST':
             //이미 플레이리스트에 있는 음악을 클릭하면 다시 추가되지 않음
-            return list.some(song => song.id === action.id) ? list : [...list, { id: action.id, title: action.title, artist: action.artist, thumb: action.thumb, url: action.url, nowPlaying: action.nowPlaying }];
+            return list.some(song => song.id === action.id) ? list : [...list, { id: action.id, title: action.title, artist: action.artist, thumb: action.thumb, url: action.url, nowPlaying: action.nowPlaying, copyright: action.copyright }];
         case 'SET_NOWPLAYING':
             //이미 리스트에 추가되어 있는 음악이면 리스트에 또 추가하지 말고 재생만 함.
             //나머지 곡들의 nowPlaying은 false로 만듦.
