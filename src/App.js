@@ -99,7 +99,7 @@ function App() {
           <MyMusicProvider>
             <PageContainer>
               <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
-              <Route path="/mymusic" render={() => <MyMusic open={open} myMusicPop={myMusicPop} />} />
+              <Route path="/mymusic" render={() => <MyMusic open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
             </PageContainer>
           </MyMusicProvider>
           <MyMusicAddAlert alert={alert}>

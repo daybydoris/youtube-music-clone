@@ -7,12 +7,12 @@ const MyMusicTemplateStyle = styled.div`
     margin:0 auto;
 `;
 
-function MyMusicTemplate({ myMusicPop }) {
+function MyMusicTemplate({ myMusicPop, onOpenPop }) {
 
     return (
         <MyMusicTemplateStyle>
             <h1>보관함에 담은 음악</h1>
-            <MyMusicList myMusicPop={myMusicPop} />
+            <MyMusicList myMusicPop={myMusicPop} onOpenPop={onOpenPop} />
         </MyMusicTemplateStyle>
     );
 }
