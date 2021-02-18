@@ -97,6 +97,16 @@ const initialMusics = [
         nowPlaying: false,
         playTime: "2:14",
         copyright: "El Perro Loco by GoSoundtrack http://www.gosoundtrack.com Creative Commons — Attribution 4.0 International — CC BY 4.0 Free Download / Stream: http://bit.ly/el-perro-loco Music promoted by Audio Library https://youtu.be/gunwGbrQWB8"
+    },
+    {
+        id: 7,
+        title: "Swing Rabbit! Swing!",
+        artist: "Amarià",
+        url: "https://api.soundcloud.com/tracks/859710691",
+        thumb: "https://i1.sndcdn.com/artworks-Y1sRHgALuiytWHTd-zEFC8g-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "3:28",
+        copyright: "Swing Rabbit ! Swing ! by Amarià https://soundcloud.com/amariamusique Creative Commons — Attribution 3.0 Unported — CC BY 3.0 Free Download / Stream: https://bit.ly/al-swing-rabbit-swing Music promoted by Audio Library https://youtu.be/lt7fn1NVxQM"
     }
 ]
 
