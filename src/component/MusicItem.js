@@ -90,7 +90,7 @@ const ItemBox = styled.div`
     flex-direction: column;
     align-items: left;
     justify-content:space-between;
-    margin:10px 20px 10px 0;
+    margin:10px 10px 10px 0;
 
     position:relative;
     
