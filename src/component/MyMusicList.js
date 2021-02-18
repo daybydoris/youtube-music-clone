@@ -6,6 +6,8 @@ import Slider from "react-slick";
 
 const MusicListBlock = styled.div`
     .slick-track{
+        margin-left: none;
+        margin-right: none;
     }
     .slick-slide{
         min-width:230px;
