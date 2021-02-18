@@ -71,7 +71,6 @@ function PlayContent() {
         if (item.nowPlaying) {
             thumbId = item.thumb;
             copyTxt = item.copyright;
-            console.log(copyTxt);
         }
     });
 

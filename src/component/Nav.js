@@ -42,7 +42,6 @@ const activeStyle = {
 function Nav({ onClosePop }) {
     const [open, setOpen] = useState(false);
 
-    console.log(open);
     const onSearchOpen = () => {
         setOpen(true);
     }
