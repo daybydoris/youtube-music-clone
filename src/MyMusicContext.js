@@ -3,7 +3,7 @@ import React, { createContext, useContext, useReducer } from 'react';
 let initialMyMusic = [];
 
 for (let i = 0; i < localStorage.length; i++) {
-    initialMyMusic.push(JSON.parse(localStorage.getItem(i)));
+    initialMyMusic.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
 }
 
 function myMusicReducer(state, action) {
