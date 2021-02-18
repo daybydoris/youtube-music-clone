@@ -85,12 +85,12 @@ const ThumbBox = styled.div`
 `;
 
 const ItemBox = styled.div`
-    width:220px;
+    width:90%;
     display:flex;
     flex-direction: column;
     align-items: left;
     justify-content:space-between;
-    margin:10px 10px 10px 0;
+    margin:10px 0;
 
     position:relative;
     

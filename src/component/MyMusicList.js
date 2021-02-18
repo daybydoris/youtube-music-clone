@@ -5,49 +5,74 @@ import MyMusicItem from './MyMusicItem';
 import Slider from "react-slick";
 
 const MusicListBlock = styled.div`
-    .slick-track{
-        margin-left: none;
-        margin-right: none;
-    }
-    .slick-slide{
-        min-width:230px;
-    }
-    .slick-prev,
-    .slick-next {
-        width:40px;
-        height:40px;
+.slick-track{
+    margin-left: none;
+    margin-right: none;
+}
+.slick-slide{
+}
+.slick-prev,
+.slick-next {
+    width:45px;
+    height:45px;
 
-        top:40%;
+    top:40%;
 
-        z-index:10;
+    z-index:10;
 
-        &:before {
-            font-size:40px;
-        }
+    &:before {
+        font-size:45px;
     }
+}
 
-    .slick-prev {
-        left: -20px;
-        [dir="rtl"] & {
-            left: auto;
-            right: -20px;
-        }
+.slick-prev {
+    left: -25px;
+    [dir="rtl"] & {
+        left: auto;
+        right: -25px;
     }
+}
 
-    .slick-next {
-        right: 10px;
-        [dir="rtl"] & {
-            left: 10px;
-            right: auto;
-        }
+.slick-next {
+    right: 0px;
+    [dir="rtl"] & {
+        left: 0px;
+        right: auto;
     }
+}
 `;
 
 const settings = {
     arrows: true,
     dots: false,
     infinite: false,
-    slidesToShow: 6
+    slidesToShow: 6,
+    lazyLoad: true,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                arrows: false
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                arrows: false
+            }
+        }
+    ]
 }
 
 function MyMusicList({ myMusicPop, onOpenPop }) {

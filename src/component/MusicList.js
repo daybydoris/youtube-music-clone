@@ -11,34 +11,33 @@ const MusicListBlock = styled.div`
         margin-right: none;
     }
     .slick-slide{
-        min-width:230px;
     }
     .slick-prev,
     .slick-next {
-        width:40px;
-        height:40px;
+        width:45px;
+        height:45px;
 
         top:40%;
 
         z-index:10;
 
         &:before {
-            font-size:40px;
+            font-size:45px;
         }
     }
 
     .slick-prev {
-        left: -20px;
+        left: -25px;
         [dir="rtl"] & {
             left: auto;
-            right: -20px;
+            right: -25px;
         }
     }
 
     .slick-next {
-        right: 10px;
+        right: 0px;
         [dir="rtl"] & {
-            left: 10px;
+            left: 0px;
             right: auto;
         }
     }
@@ -48,7 +47,33 @@ const settings = {
     arrows: true,
     dots: false,
     infinite: false,
-    slidesToShow: 6
+    slidesToShow: 6,
+    lazyLoad: true,
+    responsive: [
+        {
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 4,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                arrows: false
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                arrows: false
+            }
+        }
+    ]
 }
 
 function MusicList({ onOpenPop, myMusicPop, localIndex }) {
