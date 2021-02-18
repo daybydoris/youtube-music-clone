@@ -8,7 +8,36 @@ const MusicListBlock = styled.div`
     .slick-track{
     }
     .slick-slide{
-        min-width:220px;
+        min-width:230px;
+    }
+    .slick-prev,
+    .slick-next {
+        width:40px;
+        height:40px;
+
+        top:40%;
+
+        z-index:10;
+
+        &:before {
+            font-size:40px;
+        }
+    }
+
+    .slick-prev {
+        left: -20px;
+        [dir="rtl"] & {
+            left: auto;
+            right: -20px;
+        }
+    }
+
+    .slick-next {
+        right: 10px;
+        [dir="rtl"] & {
+            left: 10px;
+            right: auto;
+        }
     }
 `;
 
@@ -16,7 +45,7 @@ const settings = {
     arrows: true,
     dots: false,
     infinite: false,
-    slidesToShow: 5
+    slidesToShow: 6
 }
 
 function MyMusicList({ myMusicPop, onOpenPop }) {
