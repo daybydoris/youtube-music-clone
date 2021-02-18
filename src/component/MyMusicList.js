@@ -5,41 +5,41 @@ import MyMusicItem from './MyMusicItem';
 import Slider from "react-slick";
 
 const MusicListBlock = styled.div`
-.slick-track{
-    margin-left: none;
-    margin-right: none;
-}
-.slick-slide{
-}
-.slick-prev,
-.slick-next {
-    width:45px;
-    height:45px;
-
-    top:40%;
-
-    z-index:10;
-
-    &:before {
-        font-size:45px;
+    .slick-track{
+        margin-left: none;
+        margin-right: none;
     }
-}
-
-.slick-prev {
-    left: -25px;
-    [dir="rtl"] & {
-        left: auto;
-        right: -25px;
+    .slick-slide{
     }
-}
+    .slick-prev,
+    .slick-next {
+        width:45px;
+        height:45px;
 
-.slick-next {
-    right: 0px;
-    [dir="rtl"] & {
-        left: 0px;
-        right: auto;
+        top:40%;
+
+        z-index:10;
+
+        &:before {
+            font-size:45px;
+        }
     }
-}
+
+    .slick-prev {
+        left: -25px;
+        [dir="rtl"] & {
+            left: auto;
+            right: -25px;
+        }
+    }
+
+    .slick-next {
+        right: 0px;
+        [dir="rtl"] & {
+            left: 0px;
+            right: auto;
+        }
+    }
 `;
 
 const settings = {
