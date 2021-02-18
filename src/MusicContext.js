@@ -87,6 +87,16 @@ const initialMusics = [
         nowPlaying: false,
         playTime: "3:12",
         copyright: "Void Edge - Lesion X https://soundcloud.com/lesionxbeats\r\nCreative Commons — Attribution 3.0 Unported — CC BY 3.0\r\nFree Download / Stream: https://bit.ly/al-void-edge\r\nMusic promoted by Audio Library https://youtu.be/qd_2lX_bwPY\r\n"
+    },
+    {
+        id: 6,
+        title: "El Perro Loco",
+        artist: "GoSoundtrack",
+        url: "https://api.soundcloud.com/tracks/216035706",
+        thumb: "https://i1.sndcdn.com/artworks-000124147227-tezybn-t500x500.jpg",
+        nowPlaying: false,
+        playTime: "2:14",
+        copyright: "El Perro Loco by GoSoundtrack http://www.gosoundtrack.com Creative Commons — Attribution 4.0 International — CC BY 4.0 Free Download / Stream: http://bit.ly/el-perro-loco Music promoted by Audio Library https://youtu.be/gunwGbrQWB8"
     }
 ]
 
