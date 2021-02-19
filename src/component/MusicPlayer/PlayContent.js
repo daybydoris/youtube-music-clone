@@ -22,7 +22,7 @@ const FadeOut = keyframes`
 
 const PlayContentContainer = styled.div`
     position:relative;
-    width:64%;
+    width:${props => props.isDesktop ? "64" : "100"}%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +59,7 @@ const Copyright = styled.div`
     color:#fff;
 `;
 
-function PlayContent() {
+function PlayContent({ isDesktop }) {
 
     const list = usePlaylistState();
     const [hover, setHover] = useState(false);
@@ -75,7 +75,7 @@ function PlayContent() {
     });
 
     return (
-        <PlayContentContainer className="content" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <PlayContentContainer className="content" onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} isDesktop={isDesktop}>
             <Copyright hover={hover}>
                 {copyTxt}
             </Copyright>

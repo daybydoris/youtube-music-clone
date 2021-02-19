@@ -7,10 +7,12 @@ import PlaylistItem from './PlaylistItem';
 
 const PlaylistContainer = styled.ul`
     margin:0; padding:0;
+    ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px; height: 90%; overflow: scroll"};
+
 `;
 
 const PlaylistTab = styled.div`
-    display: flex;
+    display: ${props => props.isDesktop ? "flex" : "none"};
     flex-direction: column;
     align-items: center;
     justify-contents: center;
@@ -22,12 +24,12 @@ const PlaylistTab = styled.div`
     font-size:16px;
 `;
 
-function Playlist() {
+function Playlist({ isDesktop }) {
     const list = usePlaylistState();
 
     return (
         <div className="playlist">
-            <PlaylistTab>트랙</PlaylistTab>
+            <PlaylistTab isDesktop={isDesktop}>트랙</PlaylistTab>
             <PlaylistContainer>
                 {list.map(item => (
                     <PlaylistItem

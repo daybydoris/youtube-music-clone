@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Playlist from './Playlist';
 import PlayContent from './PlayContent';
+import { Default, Mobile } from '../../style/MediaQuery';
+import { useMediaQuery } from 'react-responsive';
 
 const popUp = keyframes`
     0%{
@@ -30,6 +32,7 @@ const PopContainer = styled.div`
     left:0; top:48px;
 
     display: flex;
+    flex-direction:${props => props.isDesktop ? "row" : "column"};
 
     padding:25px 35px;
     padding-bottom : 150px;
@@ -41,20 +44,23 @@ const PopContainer = styled.div`
     animation: ${props => props.open ? popUp : popDown} 0.5s forwards;
 
     .content{
-        width:64%;
+        width:${props => props.isDesktop ? "64" : "100"}%;
     }
 
     .playlist{
-        width:36%;
+        width:${props => props.isDesktop ? "36" : "100"}%;
+        ${props => props.isDesktop ? null : "height: 50%;"};
     }
 `;
 
 function MusicPlayerPop({ open }) {
 
+    const isDesktop = useMediaQuery({ minWidth: 1024 })
+
     return (
-        <PopContainer open={open} >
-            <PlayContent />
-            <Playlist />
+        <PopContainer open={open} isDesktop={isDesktop}>
+            <PlayContent isDesktop={isDesktop} />
+            <Playlist isDesktop={isDesktop} />
         </PopContainer>
     );
 };
