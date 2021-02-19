@@ -51,6 +51,7 @@ const settings = {
     lazyLoad: true,
     responsive: [
         {
+            // PC
             breakpoint: 1024,
             settings: {
                 slidesToShow: 4,
@@ -58,6 +59,7 @@ const settings = {
             }
         },
         {
+            // tablet
             breakpoint: 768,
             settings: {
                 slidesToShow: 3,
@@ -66,6 +68,7 @@ const settings = {
             }
         },
         {
+            // mobile
             breakpoint: 480,
             settings: {
                 slidesToShow: 2,

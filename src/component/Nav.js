@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBox from './SearchBox';
+import HomeIcon from '@material-ui/icons/Home';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import SearchIcon from '@material-ui/icons/Search';
+import { Mobile, Default } from '../style/MediaQuery';
 
 const NavContainer = styled.div`
     position: fixed;
@@ -56,10 +60,17 @@ function Nav({ onClosePop }) {
                 <Link to="/" onClick={onClosePop}><img src="https://music.youtube.com/img/on_platform_logo_dark.svg" alt="" /></Link>
             </div>
             <MenuContainer>
-                <NavLink to="/" onClick={onClosePop} activeStyle={activeStyle} exact>홈</NavLink>
-                <NavLink to="/mymusic" onClick={onClosePop} activeStyle={activeStyle} exact>보관함</NavLink>
+                <NavLink to="/" onClick={onClosePop} activeStyle={activeStyle} exact>
+                    <Default>홈</Default>
+                    <Mobile><HomeIcon /></Mobile>
+                </NavLink>
+                <NavLink to="/mymusic" onClick={onClosePop} activeStyle={activeStyle} exact>
+                    <Default>보관함</Default>
+                    <Mobile><LibraryMusicIcon /></Mobile>
+                </NavLink>
                 <SearchButton onClick={onSearchOpen}>
-                    검색
+                    <Default>검색</Default>
+                    <Mobile><SearchIcon /></Mobile>
                 </SearchButton>
                 {open && <SearchBox onSearchClose={onSearchClose} />}
             </MenuContainer>
