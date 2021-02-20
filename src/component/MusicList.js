@@ -7,10 +7,7 @@ import Slider from "react-slick";
 
 const MusicListBlock = styled.div`
     .slick-track{
-        margin-left: none;
-        margin-right: none;
-    }
-    .slick-slide{
+        margin-left: 0;
     }
     .slick-prev,
     .slick-next {
