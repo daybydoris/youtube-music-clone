@@ -37,7 +37,7 @@ const PlayPauseButtonStyle = {
     fontSize: "40px"
 }
 
-function LeftControlButtons({ loaded }) {
+function LeftControlButtons({ loaded, isDesktop }) {
 
     const dispatch = useMusicDispatch();
     const play = usePlayPauseState();
@@ -98,7 +98,6 @@ function LeftControlButtons({ loaded }) {
                 : play ? <PauseIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />
                     : <PlayArrowIcon style={PlayPauseButtonStyle} onClick={onPlayPause} />
             }
-
             <SkipNextIcon style={ButtonStyle} onClick={onPlayNext} />
         </LeftControlButtonsStyle>
     );

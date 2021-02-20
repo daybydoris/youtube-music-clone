@@ -38,7 +38,6 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
 
     const _onDuration = (duration) => {
         setPlayingTime(duration);
-        console.log('duration saved', duration);
     }
 
     const _onSeek = (player) => {

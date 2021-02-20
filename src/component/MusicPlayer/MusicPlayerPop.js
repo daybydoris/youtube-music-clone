@@ -45,17 +45,18 @@ const PopContainer = styled.div`
 
     .content{
         width:${props => props.isDesktop ? "64" : "100"}%;
+        ${props => props.isDesktop ? null : "height: 45%;"};
     }
 
     .playlist{
         width:${props => props.isDesktop ? "36" : "100"}%;
-        ${props => props.isDesktop ? null : "height: 50%;"};
+        ${props => props.isDesktop ? null : "height: 55%;"};
     }
 `;
 
 function MusicPlayerPop({ open }) {
 
-    const isDesktop = useMediaQuery({ minWidth: 1024 })
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
 
     return (
         <PopContainer open={open} isDesktop={isDesktop}>

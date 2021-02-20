@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useMusicState } from '../../MusicContext';
+import { Desktop } from '../../style/MediaQuery';
 
 const MiddleControlStyle = styled.div`
     display: flex;
@@ -9,7 +10,6 @@ const MiddleControlStyle = styled.div`
 
     width:60%;
     height:100%;
-
 `;
 
 const MusicInfoContainer = styled.div`
@@ -17,6 +17,7 @@ const MusicInfoContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    visibility: ${props => props.isMobile ? props.mobileToggle ? "hidden" : "visible" : "visible"};
 `;
 
 const MusicTitleArtist = styled.div`
@@ -25,12 +26,19 @@ const MusicTitleArtist = styled.div`
     align-items: left;
     justify-content: space-between;
     margin-left: 12px;
-
     font-size:16px;
+
+    .music-text{
+        overflow:hidden;
+        white-space: nowrap;
+        display: block;
+        text-overflow: ellipsis;
+    }
+
 `;
 
 
-function BarMiddleControl() {
+function BarMiddleControl({ isDesktop, mobileToggle, isMobile }) {
     const state = useMusicState();
 
     return (
@@ -38,11 +46,13 @@ function BarMiddleControl() {
             {state.filter(song => {
                 return song.nowPlaying
             }).map(song => (
-                <MusicInfoContainer key={song.id}>
-                    <img src={song.thumb} style={{ height: "40px", borderRadius: "4px" }} alt="" />
-                    <MusicTitleArtist>
-                        <div>{song.title}</div>
-                        <div style={{ color: "#ffffffb3" }}>{song.artist}</div>
+                <MusicInfoContainer key={song.id} mobileToggle={mobileToggle} isMobile={isMobile}>
+                    <Desktop>
+                        <img src={song.thumb} style={{ height: "40px", borderRadius: "4px" }} alt="" />
+                    </Desktop>
+                    <MusicTitleArtist isDesktop={isDesktop}>
+                        <div className="music-text">{song.title}</div>
+                        <div className="music-text" style={{ color: "#ffffffb3" }}>{song.artist}</div>
                     </MusicTitleArtist>
                 </MusicInfoContainer>
             ))}
