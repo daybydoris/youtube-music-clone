@@ -9,6 +9,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import QueueIcon from '@material-ui/icons/Queue';
 import PauseIcon from '@material-ui/icons/Pause';
+import { useMediaQuery } from 'react-responsive';
 
 const OptionBox = styled.ul`
     position: absolute;
@@ -58,7 +59,7 @@ const ThumbBoxHover = styled.div`
     width:100%;
     height:100%;
 
-    display: ${props => props.nowPlaying ? "initial" : "none"};
+    display: ${props => props.nowPlaying ? "initial" : props.isDesktop ? "none" : "initial"};
 
 `;
 
@@ -138,6 +139,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
     const [option, setOption] = useState(false);
     const [hover, setHover] = useState(false);
 
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
 
     // 재생 중 상태로 바꾸고 음악을 플레이리스트에 추가
     const onMusicPlay = () => {
@@ -196,7 +198,7 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
             <ThumbBox onClick={onMusicPlay}>
                 {!nowPlaying &&
                     <div>
-                        <ThumbBoxHover>
+                        <ThumbBoxHover isDesktop={isDesktop}>
                             <MoreVertContainer onClick={onMore}>
                                 <MoreVertIcon />
                             </MoreVertContainer>
