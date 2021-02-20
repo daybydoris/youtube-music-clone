@@ -2,17 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import { usePlaylistState } from '../../PlaylistContext';
 import PlaylistItem from './PlaylistItem';
-
+import { useMediaQuery } from 'react-responsive';
 
 
 const PlaylistContainer = styled.ul`
     margin:0; padding:0;
-    ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px; height: 90%; overflow: scroll"};
+    height: 90%;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar{
+        display:none;
+    }
+
+    ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px;  overflow-y: scroll"};
 
 `;
 
 const PlaylistTab = styled.div`
-    display: ${props => props.isDesktop ? "flex" : "none"};
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-contents: center;
