@@ -99,6 +99,14 @@ const ItemBox = styled.div`
 
 const ItemInfo = styled.div`
     margin: 15px 0 0 0;
+
+    .music-text{
+        // 제목, 아티스트 말줄임표
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
 `;
 
 const ItemTitle = styled.div`
@@ -220,8 +228,8 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, loc
                 </OptionList>
             </OptionBox>}
             <ItemInfo>
-                <ItemTitle>{title}</ItemTitle>
-                <ItemArtist>{artist}</ItemArtist>
+                <ItemTitle className="music-text">{title}</ItemTitle>
+                <ItemArtist className="music-text">{artist}</ItemArtist>
             </ItemInfo>
         </ItemBox>
     );

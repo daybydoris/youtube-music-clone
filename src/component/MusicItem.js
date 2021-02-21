@@ -99,6 +99,14 @@ const ItemBox = styled.div`
 
 const ItemInfo = styled.div`
     margin: 15px 0 0 0;
+
+    .music-text{
+        // 제목, 아티스트 말줄임표
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
 `;
 
 const ItemTitle = styled.div`
@@ -153,6 +161,9 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
     }
 
     const onJustAdd = () => {
+        if (list.length === 0) {
+            onMusicPlay();
+        }
         playlistDispatch({ type: 'ADD_PLAYLIST', id, title, artist, thumb, url, nowPlaying, copyright });
         setOption(!option);
     }
@@ -234,8 +245,8 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
                 </OptionList>
             </OptionBox>}
             <ItemInfo>
-                <ItemTitle>{title}</ItemTitle>
-                <ItemArtist>{artist}</ItemArtist>
+                <ItemTitle className="music-text">{title}</ItemTitle>
+                <ItemArtist className="music-text">{artist}</ItemArtist>
             </ItemInfo>
         </ItemBox>
     );
