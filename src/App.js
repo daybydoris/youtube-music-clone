@@ -36,8 +36,8 @@ const PageContainer = styled.div`
 `;
 
 const MyMusicAddAlert = styled.div`
-    position: absolute;
-    left: 2%; bottom:10%;
+    position: fixed;
+    left: 2%; bottom:85px;
 
     padding: 12px;
     background: #212121;
