@@ -44,20 +44,22 @@ const settings = {
     dots: false,
     infinite: false,
     slidesToShow: 6.3,
-    swipeToSlide: true,
+    draggable: false,
     lazyLoad: true,
     responsive: [
         {
             // PC
             breakpoint: 1024,
             settings: {
-                slidesToShow: 6.3
+                slidesToShow: 6.3,
             }
         },
         {
             // tablet
             breakpoint: 768,
             settings: {
+                draggable: true,
+                swipeToSlide: true,
                 slidesToShow: 3.3,
                 arrows: false
             }
@@ -66,6 +68,8 @@ const settings = {
             // mobile
             breakpoint: 480,
             settings: {
+                draggable: true,
+                swipeToSlide: true,
                 slidesToShow: 2.2,
                 arrows: false
             }
