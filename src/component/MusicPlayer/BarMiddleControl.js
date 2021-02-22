@@ -8,7 +8,7 @@ const MiddleControlStyle = styled.div`
     justify-content: center;
     align-items: center;
 
-    width:60%;
+    width:${props => props.isDesktop ? "50" : "40"}%;
     height:100%;
 `;
 
@@ -27,6 +27,7 @@ const MusicTitleArtist = styled.div`
     justify-content: space-between;
     margin-left: 12px;
     font-size:16px;
+    width:${props => props.isMobile ? "100" : null}%;
 
     .music-text{
         overflow:hidden;
@@ -42,7 +43,7 @@ function BarMiddleControl({ isDesktop, mobileToggle, isMobile }) {
     const state = useMusicState();
 
     return (
-        <MiddleControlStyle>
+        <MiddleControlStyle isMobile={isMobile} className="middle-control">
             {state.filter(song => {
                 return song.nowPlaying
             }).map(song => (
