@@ -115,6 +115,7 @@ const ItemTitle = styled.div`
 `;
 
 const ItemArtist = styled.div`
+    color:#ffffffb3;
     font-size:16px;
 `;
 
