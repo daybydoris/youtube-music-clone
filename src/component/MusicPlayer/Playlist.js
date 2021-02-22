@@ -4,8 +4,11 @@ import { usePlaylistState } from '../../PlaylistContext';
 import PlaylistItem from './PlaylistItem';
 import { useMediaQuery } from 'react-responsive';
 
+const PlaylistContainer = styled.div`
+    ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px;"};
+`;
 
-const PlaylistContainer = styled.ul`
+const PlaylistBox = styled.ul`
     margin:0; padding:0;
     height: 90%;
     -ms-overflow-style: none;
@@ -13,7 +16,7 @@ const PlaylistContainer = styled.ul`
         display:none;
     }
 
-    ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px;  overflow-y: scroll"};
+    ${props => props.isDesktop ? null : "overflow-y: scroll"};
 
 `;
 
@@ -34,9 +37,9 @@ function Playlist({ isDesktop }) {
     const list = usePlaylistState();
 
     return (
-        <div className="playlist">
+        <PlaylistContainer className="playlist" isDesktop={isDesktop}>
             <PlaylistTab isDesktop={isDesktop}>트랙</PlaylistTab>
-            <PlaylistContainer>
+            <PlaylistBox>
                 {list.map(item => (
                     <PlaylistItem
                         key={item.id}
@@ -48,8 +51,8 @@ function Playlist({ isDesktop }) {
                         nowPlaying={item.nowPlaying}
                     />
                 ))}
-            </PlaylistContainer>
-        </div>
+            </PlaylistBox>
+        </PlaylistContainer>
     );
 };
 
