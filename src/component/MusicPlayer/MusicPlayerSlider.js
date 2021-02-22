@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import Draggable from 'react-draggable';
+import { useMediaQuery } from 'react-responsive';
 
 const PlayerSlide = styled.div`
     position: relative;
@@ -103,8 +103,10 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
     const sliderCon = useRef();
     const hoverTime = useRef();
     const [hoveredX, setHoveredX] = useState();
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
 
     let currentWidth = (100 / playingTime) * played;
+
 
     const onTimeSeek = (e) => {
         e.stopPropagation();
@@ -124,33 +126,36 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
     }
 
     const onHover = (e) => {
-        setHoveredX(e.clientX);
 
-        let slideWidth = sliderCon.current.offsetWidth;
-        let percentCalc = (hoveredX / slideWidth) * 100;
+        if (isDesktop) {
+            setHoveredX(e.clientX);
 
-        let seekTime = (playingTime * percentCalc) / 100;
+            let slideWidth = sliderCon.current.offsetWidth;
+            let percentCalc = (hoveredX / slideWidth) * 100;
 
-        let minutes = 0;
-        let seconds = 0;
+            let seekTime = (playingTime * percentCalc) / 100;
 
-        if (seekTime < 60) {
-            if (Math.round(seekTime) < 10) {
-                seconds = `0${Math.round(seekTime)}`;
-            } else {
-                seconds = Math.round(seekTime);
-            }
-        } else if (seekTime >= 60) {
-            minutes = Math.floor(Math.floor(seekTime) / 60);
-            seconds = Math.round(seekTime) % 60;
-            if (seconds < 10) {
-                seconds = `0${Math.round(seekTime) % 60}`;
-            } else {
+            let minutes = 0;
+            let seconds = 0;
+
+            if (seekTime < 60) {
+                if (Math.round(seekTime) < 10) {
+                    seconds = `0${Math.round(seekTime)}`;
+                } else {
+                    seconds = Math.round(seekTime);
+                }
+            } else if (seekTime >= 60) {
+                minutes = Math.floor(Math.floor(seekTime) / 60);
                 seconds = Math.round(seekTime) % 60;
+                if (seconds < 10) {
+                    seconds = `0${Math.round(seekTime) % 60}`;
+                } else {
+                    seconds = Math.round(seekTime) % 60;
+                }
             }
-        }
 
-        hoverTime.current = `${minutes}:${seconds}`;
+            hoverTime.current = `${minutes}:${seconds}`;
+        }
     }
     return (
         <PlayerSlide>
@@ -159,7 +164,7 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
                 <PlayingSlide currentWidth={currentWidth}>
                     <RedDot className="red-dot" />
                 </PlayingSlide>
-                <TimeBox position={hoveredX}>
+                <TimeBox position={hoveredX} isDesktop={isDesktop}>
                     {hoverTime.current}
                 </TimeBox>
             </SliderContainer>
