@@ -50,14 +50,14 @@ const settings = {
     responsive: [
         {
             // PC
-            breakpoint: 1024,
+            breakpoint: 1920,
             settings: {
                 slidesToShow: 6.3,
             }
         },
         {
             // tablet
-            breakpoint: 768,
+            breakpoint: 1180,
             settings: {
                 draggable: true,
                 swipeToSlide: true,
@@ -67,7 +67,7 @@ const settings = {
         },
         {
             // mobile
-            breakpoint: 480,
+            breakpoint: 640,
             settings: {
                 draggable: true,
                 swipeToSlide: true,

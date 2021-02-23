@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useMediaQuery } from 'react-responsive';
+import { IsDesktop } from '../../style/MediaQuery';
 
 const PlayerSlide = styled.div`
     position: relative;
@@ -103,7 +103,7 @@ function MusicPlayerSlider({ playingTime, played, _onSeekMouseDown, _onSeekChang
     const sliderCon = useRef();
     const hoverTime = useRef();
     const [hoveredX, setHoveredX] = useState();
-    const isDesktop = useMediaQuery({ minWidth: 1024 });
+    const isDesktop = IsDesktop();
 
     let currentWidth = (100 / playingTime) * played;
 

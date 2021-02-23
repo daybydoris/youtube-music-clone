@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import BarLeftControl from './BarLeftControl';
 import BarMiddleControl from './BarMiddleControl';
 import BarRightControl from './BarRightControl';
-import { usePlayPauseState } from '../../MusicContext';
 import VideoContainer from './VideoContainer';
-import { useMediaQuery } from 'react-responsive';
+import { IsDesktop, IsTablet, IsMobile } from '../../style/MediaQuery';
+
 
 const PlayerBarStyle = styled.div`
 display: flex;
@@ -24,9 +24,9 @@ function MusicPlayerBar({ onPopToggle, open, played, _onProgress, _onDuration, s
     const volume = useRef(0.5);
     const [hover, setHover] = useState(false);
 
-    const isDesktop = useMediaQuery({ minWidth: 1024 });
-    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-    const isMobile = useMediaQuery({ maxWidth: 767 });
+    const isDesktop = IsDesktop();
+    const isTablet = IsTablet();
+    const isMobile = IsMobile();
     const [mobileToggle, setMobileToggle] = useState(false);
 
 

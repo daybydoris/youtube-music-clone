@@ -2,8 +2,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Playlist from './Playlist';
 import PlayContent from './PlayContent';
-import { Default, Mobile } from '../../style/MediaQuery';
-import { useMediaQuery } from 'react-responsive';
+import { IsDesktop } from '../../style/MediaQuery';
 
 const popUp = keyframes`
     0%{
@@ -56,7 +55,7 @@ const PopContainer = styled.div`
 
 function MusicPlayerPop({ open }) {
 
-    const isDesktop = useMediaQuery({ minWidth: 1024 });
+    const isDesktop = IsDesktop();
 
     return (
         <PopContainer open={open} isDesktop={isDesktop}>

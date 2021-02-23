@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { usePlaylistState } from '../../PlaylistContext';
 import PlaylistItem from './PlaylistItem';
-import { useMediaQuery } from 'react-responsive';
 
 const PlaylistContainer = styled.div`
     ${props => props.isDesktop ? null : "margin-top: 10px; margin-bottom: 10px;"};

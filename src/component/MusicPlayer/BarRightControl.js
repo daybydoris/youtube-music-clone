@@ -7,8 +7,6 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-import { useMediaQuery } from 'react-responsive';
-import { Mobile, Default } from '../../style/MediaQuery';
 
 const RightControlStyle = styled.div`
     display: flex;
