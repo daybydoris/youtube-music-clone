@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import Playlist from './Playlist';
 import PlayContent from './PlayContent';
 import { IsDesktop } from '../../style/MediaQuery';
+import { AppContext } from '../../App'
 
 const popUp = keyframes`
     0%{
@@ -53,10 +54,11 @@ const PopContainer = styled.div`
     }
 `;
 
-function MusicPlayerPop({ open }) {
+function MusicPlayerPop() {
 
     const isDesktop = IsDesktop();
 
+    const { open } = useContext(AppContext)
     return (
         <PopContainer open={open} isDesktop={isDesktop}>
             <PlayContent isDesktop={isDesktop} />

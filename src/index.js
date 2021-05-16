@@ -6,11 +6,19 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { MusicProvider, PlayPauseProvider } from './MusicContext';
+import { PlaylistProvider } from './PlaylistContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <MusicProvider>
+        <PlaylistProvider>
+          <PlayPauseProvider>
+            <App />
+          </PlayPauseProvider>
+        </PlaylistProvider>
+      </MusicProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

@@ -12,7 +12,7 @@ const LeftControlStyle = styled.div`
     height: 100%;
 `;
 
-function BarLeftControl({ played, loaded, isDesktop, isMobile }) {
+function BarLeftControl({ played, loaded, isMobile }) {
     return (
         <LeftControlStyle isMobile={isMobile}>
             <LeftControlButtons loaded={loaded} />

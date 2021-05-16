@@ -77,7 +77,7 @@ const settings = {
     ]
 }
 
-function MyMusicList({ myMusicPop, onOpenPop }) {
+function MyMusicList() {
     const myMusic = useMyMusicState();
 
     if (myMusic.length < 1) {
@@ -100,8 +100,6 @@ function MyMusicList({ myMusicPop, onOpenPop }) {
                             nowPlaying={song.nowPlaying}
                             copyright={song.copyright}
                             localIndex={song.localIndex}
-                            myMusicPop={myMusicPop}
-                            onOpenPop={onOpenPop}
                         />
                     ))
                 }

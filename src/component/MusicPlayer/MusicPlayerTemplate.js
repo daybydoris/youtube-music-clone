@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext, createContext } from 'react';
 import styled from 'styled-components';
 import MusicPlayerSlider from './MusicPlayerSlider';
 import MusicPlayerBar from './MusicPlayerBar';
 import MusicPlayerPop from './MusicPlayerPop';
 import { usePlaylistState } from '../../PlaylistContext';
+import { AppContext } from '../../App'
 
 const PlayerStyle = styled.div`
     position: fixed;
@@ -15,7 +16,7 @@ const PlayerStyle = styled.div`
 
 // 플레이어바를 감싸는 템플릿
 
-function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
+function MusicPlayerTemplate() {
 
     const [played, setPlayed] = useState(0);
     const [playingTime, setPlayingTime] = useState(0);
@@ -54,8 +55,9 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
 
     const _onSeekMouseUp = (e) => {
         setSeeking(false);
-        //this.player.seekTo(played);
     }
+
+    const { onClosePop } = useContext(AppContext);
 
     let listLen = list.length;
 
@@ -65,10 +67,10 @@ function MusicPlayerTemplate({ open, onPopToggle, onClosePop, onOpenPop }) {
 
     return (
         (listLen > 0 && <>
-            <MusicPlayerPop open={open} />
+            <MusicPlayerPop />
             <PlayerStyle>
                 <MusicPlayerSlider played={played} playingTime={playingTime} _onSeekMouseDown={_onSeekMouseDown} _onSeekChange={_onSeekChange} _onSeekMouseUp={_onSeekMouseUp} player={player} />
-                <MusicPlayerBar onPopToggle={onPopToggle} open={open} _onProgress={_onProgress} _onDuration={_onDuration} played={played} seeking={seeking} _onSeek={_onSeek} player={player} loaded={loaded} setLoaded={setLoaded} _onReady={_onReady} />
+                <MusicPlayerBar _onProgress={_onProgress} _onDuration={_onDuration} played={played} seeking={seeking} _onSeek={_onSeek} player={player} loaded={loaded} setLoaded={setLoaded} _onReady={_onReady} />
             </PlayerStyle>
         </>
         )

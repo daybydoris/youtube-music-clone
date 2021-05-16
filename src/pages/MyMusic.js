@@ -8,10 +8,10 @@ const MyMusicStyle = styled.div`
     width:100%;
 `;
 
-function MyMusic({ myMusicPop, onOpenPop }) {
+function MyMusic() {
     return (
         <MyMusicStyle>
-            <MyMusicTemplate myMusicPop={myMusicPop} onOpenPop={onOpenPop} />
+            <MyMusicTemplate />
         </MyMusicStyle>
     );
 };

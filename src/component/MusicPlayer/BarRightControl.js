@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useContext } from 'react';
 import styled from 'styled-components';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import RepeatIcon from '@material-ui/icons/Repeat';
@@ -7,6 +7,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+import { AppContext } from '../../App'
 
 const RightControlStyle = styled.div`
     display: flex;
@@ -105,7 +106,7 @@ const WhiteDot = styled.div`
     background:#fff;
 `;
 
-function BarRightControl({ onPopToggle, open, onVolume, hover, onHoverTrue, onMobileBtn, mobileToggle, isMobile, isDesktop, isTablet }) {
+function BarRightControl({ onVolume, hover, onHoverTrue, onMobileBtn, mobileToggle, isMobile, isDesktop, isTablet }) {
 
     const slideBar = useRef();
     let [volumeSliderW, setVolumeSliderW] = useState(50);
@@ -132,6 +133,8 @@ function BarRightControl({ onPopToggle, open, onVolume, hover, onHoverTrue, onMo
         setVolumeSliderW(50);
         onVolume(50);
     }
+
+    const { onPopToggle, open } = useContext(AppContext)
 
     return (
         <RightControlStyle isMobile={isMobile} mobileToggle={mobileToggle}>

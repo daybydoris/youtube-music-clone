@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import MusicList from './MusicList';
 import styled from 'styled-components';
-
+import { AppContext } from '../App'
 
 const HomeTemplateStyle = styled.div`
     width:80%;
@@ -10,8 +10,10 @@ const HomeTemplateStyle = styled.div`
     visibility: ${props => props.open ? "hidden" : "visible"};
 `;
 
-function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
+function HomeTemplate({ subtitle, title }) {
     const [localIndex, setLocalIndex] = useState(0);
+
+    const { open } = useContext(AppContext)
 
     if (localStorage.length > 0) {
         for (let i = 0; i < localStorage.length; i++) {
@@ -26,7 +28,7 @@ function HomeTemplate({ subtitle, title, open, onOpenPop, myMusicPop }) {
             <HomeTemplateStyle open={open}>
                 <p>{subtitle}</p>
                 <h1>{title}</h1>
-                <MusicList onOpenPop={onOpenPop} myMusicPop={myMusicPop} localIndex={localIndex} />
+                <MusicList localIndex={localIndex} />
             </HomeTemplateStyle>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
@@ -10,6 +10,7 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import QueueIcon from '@material-ui/icons/Queue';
 import PauseIcon from '@material-ui/icons/Pause';
 import { IsDesktop } from '../style/MediaQuery';
+import { AppContext } from '../App'
 
 
 const OptionBox = styled.ul`
@@ -133,7 +134,7 @@ const NowPlayingIcon = {
     fontSize: "45px"
 }
 
-function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, localIndex, myMusicPop, onOpenPop }) {
+function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, localIndex }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
@@ -145,6 +146,8 @@ function MyMusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, loc
     const [hover, setHover] = useState(false);
 
     const isDesktop = IsDesktop();
+
+    const { onOpenPop, myMusicPop } = useContext(AppContext)
 
     const onMusicPlay = () => {
         dispatch({ type: "PLAY", id });

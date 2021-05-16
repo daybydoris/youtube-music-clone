@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { useMusicDispatch, usePlayPauseDispatch, usePlayPauseState } from '../MusicContext';
 import { usePlaylistDispatch, usePlaylistState } from '../PlaylistContext';
@@ -10,6 +10,7 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import QueueIcon from '@material-ui/icons/Queue';
 import PauseIcon from '@material-ui/icons/Pause';
 import { IsDesktop } from '../style/MediaQuery';
+import { AppContext } from '../App'
 
 const OptionBox = styled.ul`
     position: absolute;
@@ -134,7 +135,7 @@ const NowPlayingIcon = {
 
 
 
-function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpenPop, myMusicPop, localIndex }) {
+function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, localIndex }) {
     const dispatch = useMusicDispatch();
     const playlistDispatch = usePlaylistDispatch();
     const playDispatch = usePlayPauseDispatch();
@@ -148,6 +149,8 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
     const [hover, setHover] = useState(false);
 
     const isDesktop = IsDesktop();
+
+    const { onOpenPop, myMusicPop } = useContext(AppContext)
 
     // 재생 중 상태로 바꾸고 음악을 플레이리스트에 추가
     const onMusicPlay = () => {
@@ -193,7 +196,18 @@ function MusicItem({ id, title, thumb, artist, url, nowPlaying, copyright, onOpe
         const isSame = myMusicState.some(song => song.id === id);
 
         if (!isSame) {
-            localStorage.setItem(localIndex, JSON.stringify({ id, title, artist, thumb, url, nowPlaying: false, copyright, localIndex }));
+            localStorage.setItem(
+                localIndex,
+                JSON.stringify({
+                    id,
+                    title,
+                    artist,
+                    thumb,
+                    url,
+                    nowPlaying: false,
+                    copyright,
+                    localIndex
+                }));
             myMusicDispatch({ type: 'ADD_MYMUSIC', localIndex });
             myMusicPop('add');
         } else {

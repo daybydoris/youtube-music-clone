@@ -78,7 +78,7 @@ const settings = {
     ]
 }
 
-function MusicList({ onOpenPop, myMusicPop, localIndex }) {
+function MusicList({ localIndex }) {
 
     const songs = useMusicState();
 
@@ -96,8 +96,6 @@ function MusicList({ onOpenPop, myMusicPop, localIndex }) {
                             url={song.url}
                             nowPlaying={song.nowPlaying}
                             copyright={song.copyright}
-                            onOpenPop={onOpenPop}
-                            myMusicPop={myMusicPop}
                             localIndex={localIndex}
                         />
                     ))}

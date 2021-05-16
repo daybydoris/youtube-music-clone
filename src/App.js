@@ -5,8 +5,6 @@ import MyMusic from './pages/MyMusic';
 import Nav from './component/Nav';
 import MusicPlayerTemplate from './component/MusicPlayer/MusicPlayerTemplate';
 import styled, { createGlobalStyle } from 'styled-components';
-import { MusicProvider, PlayPauseProvider } from './MusicContext';
-import { PlaylistProvider } from './PlaylistContext';
 import { MyMusicProvider } from './MyMusicContext';
 
 const GlobalStyle = createGlobalStyle`
@@ -47,6 +45,7 @@ const MyMusicAddAlert = styled.div`
     display:${props => props.alert ? "block" : "none"};
 `;
 
+export const AppContext = React.createContext(null);
 
 function App() {
 
@@ -91,24 +90,28 @@ function App() {
   }
 
   return (
-    <MusicProvider>
-      <PlaylistProvider>
-        <PlayPauseProvider>
-          <GlobalStyle />
-          <Nav onClosePop={onClosePop} />
-          <MyMusicProvider>
-            <PageContainer>
-              <Route path="/" exact render={() => <Home open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
-              <Route path="/mymusic" render={() => <MyMusic open={open} onOpenPop={onOpenPop} myMusicPop={myMusicPop} />} />
-            </PageContainer>
-          </MyMusicProvider>
-          <MyMusicAddAlert alert={alert}>
-            {text}
-          </MyMusicAddAlert>
-          <MusicPlayerTemplate open={open} onPopToggle={onPopToggle} onClosePop={onClosePop} onOpenPop={onOpenPop} />
-        </PlayPauseProvider>
-      </PlaylistProvider>
-    </MusicProvider>
+    <AppContext.Provider
+      value={{
+        onClosePop,
+        onOpenPop,
+        onPopToggle,
+        myMusicPop,
+        open
+      }}>
+      <GlobalStyle />
+      <Nav />
+      <MyMusicProvider>
+        <PageContainer>
+          <Route path="/" exact render={() => <Home />} />
+          <Route path="/mymusic" render={() => <MyMusic />} />
+        </PageContainer>
+      </MyMusicProvider>
+      <MyMusicAddAlert alert={alert}>
+        {text}
+      </MyMusicAddAlert>
+      <MusicPlayerTemplate />
+    </AppContext.Provider>
+
   );
 }
 

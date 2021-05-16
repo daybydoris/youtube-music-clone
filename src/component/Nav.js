@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBox from './SearchBox';
@@ -6,6 +6,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import SearchIcon from '@material-ui/icons/Search';
 import { Mobile, Default } from '../style/MediaQuery';
+import { AppContext } from '../App'
 
 const NavContainer = styled.div`
     position: fixed;
@@ -56,72 +57,23 @@ const Profile = styled.div`
     line-height:1.7;
 `;
 
-const ProfileInfo = styled.div`
-    display: flex;
-    align-items: center;
-    backgound: #212121;
-
-    width:100%;
-    height: 36px;
-    padding:0 8px;
-`;
-
-const ProfileOption = styled.ul`
-    position: absolute;
-    right:0; top: 100%;
-
-    display: ${props => props.profile ? "flex" : "none"};
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-
-    width: 180px;
-    margin: 0;
-    padding: 12px 0;
-    background:#212121;
-
-    z-index: 10;
-
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 2px;
-
-    font-weight: 300;
-`;
-
-const ProfileOptionList = styled.li`
-    display: flex;
-    align-items: center;
-    backgound: #212121;
-
-    width:100%;
-    height: 36px;
-    padding:0 8px;
-
-    cursor: pointer;
-
-    &:hover{
-        background:#323232;
-    }
-`;
-
 const activeStyle = {
     color: "#fff"
 }
 
-function Nav({ onClosePop }) {
+function Nav() {
     const [open, setOpen] = useState(false);
-    const [profile, setProfile] = useState(false);
 
     const onSearchOpen = () => { setOpen(true); }
 
     const onSearchClose = () => { setOpen(false); }
 
-    const onProfileToggle = () => { setProfile(!profile); }
+    const { onClosePop } = useContext(AppContext);
 
     return (
         <NavContainer>
             <div className="logo">
-                <Link to="/" onClick={onClosePop}><img src="logo_dark.png" alt="" width="80px" height="24px"/></Link>
+                <Link to="/" onClick={onClosePop}><img src="logo_dark.png" alt="" width="80px" height="24px" /></Link>
             </div>
             <MenuContainer>
                 <NavLink to="/" onClick={onClosePop} activeStyle={activeStyle} exact>

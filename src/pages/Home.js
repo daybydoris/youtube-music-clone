@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import HomeTemplate from '../component/HomeTemplate';
 
@@ -22,7 +22,7 @@ const HomeStyle = styled.div`
 `;
 
 
-function Home({ open, onOpenPop, myMusicPop }) {
+function Home() {
 
 
     return (
@@ -32,9 +32,6 @@ function Home({ open, onOpenPop, myMusicPop }) {
                     key={list.id}
                     subtitle={list.subtitle}
                     title={list.title}
-                    open={open}
-                    onOpenPop={onOpenPop}
-                    myMusicPop={myMusicPop}
                 />
             ))}
         </HomeStyle>
