@@ -1,37 +1,4 @@
 import React, { useContext, useReducer, createContext } from 'react';
-import AkmuThumb from './img/akmuartificialgrass.jpg';
-import HigedanThumb from './img/higedanpretender.jpg';
-import SoohyunThumb from './img/soohyunstartagain.jpg';
-
-const musics = [
-    {
-        id: 1,
-        title: "인공 잔디",
-        artist: "AKMU",
-        url: "https://www.youtube.com/embed/5pK1cnHCPdk",
-        thumb: AkmuThumb,
-        nowPlaying: false,
-        playTime: "3:46"
-    },
-    {
-        id: 2,
-        title: "Pretender",
-        artist: "official髭男dism",
-        url: "https://www.youtube.com/embed/TQ8WlA2GXbk",
-        thumb: HigedanThumb,
-        nowPlaying: false,
-        playTime: "5:27"
-    },
-    {
-        id: 3,
-        title: "Start Again",
-        artist: "SOOHYUN (from U-KISS)",
-        url: "https://www.youtube.com/embed/pP6WTt4BK2s",
-        thumb: SoohyunThumb,
-        nowPlaying: false,
-        playTime: "4:54"
-    }
-];
 
 const initialMusics = [
     {
@@ -135,19 +102,15 @@ function PlayPauseReducer(play, action) {
     }
 }
 
-const MusicStateContext = createContext();
-const MusicDispatchContext = createContext();
-const PlayPauseStateContext = createContext();
-const PlayPauseDispatchContext = createContext();
+const MusicContext = createContext();
+const PlayPauseContext = createContext();
 
 export function MusicProvider({ children }) {
     const [state, dispatch] = useReducer(musicReducer, initialMusics);
     return (
-        <MusicStateContext.Provider value={state}>
-            <MusicDispatchContext.Provider value={dispatch}>
-                {children}
-            </MusicDispatchContext.Provider>
-        </MusicStateContext.Provider>
+        <MusicContext.Provider value={{ state, dispatch }}>
+            {children}
+        </MusicContext.Provider>
     );
 }
 
@@ -156,45 +119,36 @@ export function PlayPauseProvider({ children }) {
     const [play, dispatch] = useReducer(PlayPauseReducer, false);
 
     return (
-        <PlayPauseStateContext.Provider value={play} >
-            <PlayPauseDispatchContext.Provider value={dispatch}>
-                {children}
-            </PlayPauseDispatchContext.Provider>
-        </PlayPauseStateContext.Provider>
+        <PlayPauseContext.Provider value={{ play, dispatch }} >
+            {children}
+        </PlayPauseContext.Provider>
     );
 }
 
 
 //custom Hooks
 export function useMusicState() {
-    const context = useContext(MusicStateContext);
-    if (!context) {
+    const { state } = useContext(MusicContext);
+    if (!state) {
         throw new Error('Cannot find MusicProvider');
     }
-    return context;
+    return state;
 }
 
 export function useMusicDispatch() {
-    const context = useContext(MusicDispatchContext);
-    if (!context) {
+    const { dispatch } = useContext(MusicContext);
+    if (!dispatch) {
         throw new Error('Cannot find MusicProvider');
     }
-    return context;
+    return dispatch;
 }
 
 export function usePlayPauseState() {
-    const context = useContext(PlayPauseStateContext);
-    // console.log(context);
-    // if (!context) {
-    //     throw new Error('Cannot find PlayPauseProvider');
-    // }
-    return context;
+    const { play } = useContext(PlayPauseContext);
+    return play;
 }
 
 export function usePlayPauseDispatch() {
-    const context = useContext(PlayPauseDispatchContext);
-    // if (!context) {
-    //     throw new Error('Cannot find PlayPauseProvider');
-    // }
-    return context;
+    const { dispatch } = useContext(PlayPauseContext);
+    return dispatch;
 }
